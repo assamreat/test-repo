@@ -130,11 +130,27 @@ const UploadDoc = ({ match, upload, getFiles, files }) => {
                             </h6>
                         </div>
                         <div className="card-body">
-                            <p>
-                                {files && files.docURL
-                                    ? 'Documents are uploaded for this appeal.'
-                                    : 'No documents uploaded for this appeal. please upload documents'}
-                            </p>
+                            <div>
+                                {files && files.docURL ? (
+                                    <div>
+                                        <p>
+                                            Documents are uploaded for this
+                                            appeal.
+                                        </p>
+                                        <p>
+                                            File Name:&nbsp;
+                                            <span className="fw-bold">
+                                                {files.docURL
+                                                    .split('-')
+                                                    .slice(3)
+                                                    .join('-')}
+                                            </span>
+                                        </p>
+                                    </div>
+                                ) : (
+                                    'No documents uploaded for this appeal. please upload documents'
+                                )}
+                            </div>
 
                             <div className="my-2"></div>
                         </div>
