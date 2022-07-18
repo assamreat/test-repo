@@ -7,7 +7,7 @@ import UserItem from './UserItem';
 const Users = ({ getUsers, user: { users, loading } }) => {
     useEffect(() => {
         getUsers();
-    }, [getUsers]);
+    }, []);
 
     return loading ? (
         <div>loading</div>
