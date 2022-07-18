@@ -276,7 +276,11 @@ const AppealShow = ({ appellantGetAppeal, match, appeal: { appeal } }) => {
                                                 passed under:
                                             </p>
                                             <div>
-                                                <p>
+                                                <p
+                                                    style={{
+                                                        whiteSpace: 'pre-wrap',
+                                                    }}
+                                                >
                                                     {` ${appeal.facts_of_case} `}
                                                 </p>
                                             </div>
@@ -288,7 +292,11 @@ const AppealShow = ({ appellantGetAppeal, match, appeal: { appeal } }) => {
                                             </p>
 
                                             <div>
-                                                <p>
+                                                <p
+                                                    style={{
+                                                        whiteSpace: 'pre-wrap',
+                                                    }}
+                                                >
                                                     {` ${appeal.ground_of_appeal} `}
                                                 </p>
                                             </div>
@@ -311,7 +319,11 @@ const AppealShow = ({ appellantGetAppeal, match, appeal: { appeal } }) => {
                                             </p>
 
                                             <div>
-                                                <p>
+                                                <p
+                                                    style={{
+                                                        whiteSpace: 'pre-wrap',
+                                                    }}
+                                                >
                                                     {` ${appeal.reliefs_sought} `}
                                                 </p>
                                             </div>
@@ -332,7 +344,11 @@ const AppealShow = ({ appellantGetAppeal, match, appeal: { appeal } }) => {
                                             </p>
 
                                             <div>
-                                                <p>
+                                                <p
+                                                    style={{
+                                                        whiteSpace: 'pre-wrap',
+                                                    }}
+                                                >
                                                     {` ${appeal.interim_order} `}
                                                 </p>
                                             </div>
