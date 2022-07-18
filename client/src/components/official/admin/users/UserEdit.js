@@ -34,17 +34,27 @@ const UserEdit = ({
         role: '',
     });
 
+    const [debouncedUserId, setDebouncedUserId] = useState('');
+
+    useEffect(() => {
+        if (user) setDebouncedUserId(user.id);
+    }, [user]);
+
     useEffect(() => {
         const { id } = match.params;
         getUser(id);
 
-        setFormData({
-            firstName: loading || !user.firstName ? '' : user.firstName,
-            lastName: loading || !user.lastName ? '' : user.lastName,
-            email: loading || !user.email ? '' : user.email,
-            role: loading || !user.role ? '' : user.role,
-        });
-    }, [loading]);
+        if (debouncedUserId) {
+            setFormData({
+                firstName: loading || !user.firstName ? '' : user.firstName,
+                lastName: loading || !user.lastName ? '' : user.lastName,
+                email: loading || !user.email ? '' : user.email,
+                role: loading || !user.role ? '' : user.role,
+                password: '',
+                password2: '',
+            });
+        }
+    }, [loading, debouncedUserId]);
 
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
@@ -101,7 +111,9 @@ const UserEdit = ({
         }
         return errors;
     };
-    return (
+    return !user ? (
+        <div>loading</div>
+    ) : (
         <div className="container-fluid">
             <h1 className="h3 mb-2 text-gray-800">Edit User</h1>
             <p className="mb-4">Update the User</p>
