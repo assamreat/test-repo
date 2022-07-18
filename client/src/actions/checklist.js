@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { CREATE_CHECKLIST, GET_CHECKLIST, CHECKLIST_ERROR } from './types';
+import {
+    CREATE_CHECKLIST,
+    GET_CHECKLIST,
+    CHECKLIST_ERROR,
+    GET_ERRORS,
+} from './types';
 
 // Create a Checklist
 export const createChecklist = (formData, id, history) => async (dispatch) => {
@@ -28,6 +33,11 @@ export const createChecklist = (formData, id, history) => async (dispatch) => {
                 msg: err.response.statusText,
                 status: err.response.status,
             },
+        });
+
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data,
         });
     }
 };

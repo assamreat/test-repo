@@ -69,7 +69,7 @@ router.get('/appeals/:id', auth, isRegistrar, async (req, res) => {
 });
 
 // @route POST api/registrar/appeals/:id/checklist
-// @desc  fill Form A
+// @desc  create checklist (Form A)
 // @access Private
 
 router.post(
@@ -143,9 +143,52 @@ router.post(
             });
 
             if (existingChecklist) {
-                return res.status(400).json({
-                    msg: 'checklist is already filled for this appeal',
+                await Checklist.update(
+                    {
+                        appeal_num: appealNum,
+                        complaint_num: complaintNum,
+                        appellant: appellant,
+                        respondent: respondent,
+                        section_num: sectionNum,
+                        is_appeal_competent: isAppealCompetent,
+                        is_name_address_correct: isNameAddressCorrect,
+                        is_ordercopy_attached: isOrdercopyAttached,
+                        date_of_order: dateOfOrder,
+                        date_of_communication: dateOfCommunication,
+                        date_of_application: dateOfApplication,
+                        date_on_copy_ready: dateOnCopyReady,
+                        date_of_receipt: dateOfReceipt,
+                        date_of_filing: dateOfFiling,
+                        date_of_submission_hardcopy: dateOfSubmissionHardcopy,
+                        is_delay_on_submission: isDelayOnSubmission,
+                        amount_of_delay_on_submission:
+                            amountOfDelayOnSubmission,
+                        is_appeal_filed_within_limitation:
+                            isAppealFiledWithinLimitation,
+                        is_delay_in_filing: isDelayInFiling,
+                        amount_of_delay_in_filing: amountOfDelayInFiling,
+                        is_condonation_of_delay_filed:
+                            isCondonationOfDelayFiled,
+                        objection_for_condonation: objectionForCondonation,
+                        is_fees_paid: isFeesPaid,
+                        date_of_payment: dateOfPayment,
+                        copy_of_receipt: copyOfReceipt,
+                        is_pagination_correct: isPaginationCorrect,
+                        legible_docs: legibleDocs,
+                        is_appeal_memo_annexed: isAppealMemoAnnexed,
+                        is_served_by_post: isServedByPost,
+                        is_auth_stamped: isAuthStamped,
+                        is_email_phone_on_record: isEmailPhoneOnRecord,
+                        appealId: appealId,
+                    },
+                    { where: { appealId: appealId } }
+                );
+
+                const updatedChecklist = await Checklist.findOne({
+                    where: { appealId: appealId },
                 });
+
+                return res.json(updatedChecklist);
             }
             // Create a checklist instance
             const checklist = Checklist.build({

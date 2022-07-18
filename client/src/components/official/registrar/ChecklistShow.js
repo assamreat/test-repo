@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ChecklistShow = ({ checklist }) => {
     return (
@@ -73,12 +74,15 @@ const ChecklistShow = ({ checklist }) => {
                             </div>
 
                             <div className="col-12">
-                                <button className="btn btn-primary btn-icon-split">
+                                <Link
+                                    to={`/official/registrar/appeals/${checklist.id}/checklist/edit`}
+                                    className="btn btn-primary btn-icon-split"
+                                >
                                     <span className="icon text-white-50">
                                         <i className="fas fa-flag"></i>
                                     </span>
                                     <span className="text">Edit Form A</span>
-                                </button>
+                                </Link>
                                 <div className="my-2"></div>
                             </div>
                         </form>
