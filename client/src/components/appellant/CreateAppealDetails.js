@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './CreateAppeal.css';
 
 const CreateAppealDetails = ({
     formData,
@@ -11,6 +12,17 @@ const CreateAppealDetails = ({
 
     const next = () => {
         setFormErrors(validate(formData));
+        const err = Object.keys(validate(formData));
+
+        if (err.length) {
+            const input = document.querySelector(`input[name=${err[0]}]`);
+
+            input.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'start',
+            });
+        }
         if (Object.keys(validate(formData)).length === 0) {
             nextStep();
             document.documentElement.scrollTop = 0;
@@ -23,136 +35,196 @@ const CreateAppealDetails = ({
         const mobile_regex = /^([0|\+[0-9]{1,5})?([6-9][0-9]{9})$/;
 
         if (!values.first_name) {
-            errors.first_name = 'First name is required';
+            errors.first_name = 'ca_danger';
+            errors.fullname = 'Name can not be empty';
         }
         if (!values.last_name) {
-            errors.last_name = 'Last name is required';
+            errors.last_name = 'ca_danger';
         }
         if (!values.ar_line1) {
-            errors.ar_line1 = 'Address Line 1 is required';
+            errors.ar_line1 = 'ca_danger';
         }
         if (!values.ar_line2) {
-            errors.ar_line2 = 'Address Line 2 is required';
+            errors.ar_line2 = 'ca_danger';
         }
         if (!values.ar_country) {
-            errors.ar_country = 'Country is required';
+            errors.ar_country = 'ca_danger';
         }
         if (!values.ar_state) {
-            errors.ar_state = 'State is required';
+            errors.ar_state = 'ca_danger';
         }
         if (!values.ar_city) {
-            errors.ar_city = 'City is required';
+            errors.ar_city = 'ca_danger';
         }
         if (!values.ar_district) {
-            errors.ar_district = 'District is required';
+            errors.ar_district = 'ca_danger';
         }
         if (!values.ar_pin) {
-            errors.ar_pin = 'Pin is required';
+            errors.ar_pin = 'ca_danger';
+        }
+        if (
+            errors.ar_line1 ||
+            errors.ar_line2 ||
+            errors.ar_country ||
+            errors.ar_state ||
+            errors.ar_city ||
+            errors.ar_district ||
+            errors.ar_pin
+        ) {
+            errors.ar = 'Address of residence fields can not be empty';
         }
         if (!values.as_line1) {
-            errors.as_line1 = 'Address Line 1 is required';
+            errors.as_line1 = 'ca_danger';
         }
         if (!values.as_line2) {
-            errors.as_line2 = 'Address Line 2 is required';
+            errors.as_line2 = 'ca_danger';
         }
         if (!values.as_country) {
-            errors.as_country = 'Country is required';
+            errors.as_country = 'ca_danger';
         }
         if (!values.as_state) {
-            errors.as_state = 'State is required';
+            errors.as_state = 'ca_danger';
         }
         if (!values.as_city) {
-            errors.as_city = 'City is required';
+            errors.as_city = 'ca_danger';
         }
         if (!values.as_district) {
-            errors.as_district = 'District is required';
+            errors.as_district = 'ca_danger';
         }
         if (!values.as_pin) {
-            errors.as_pin = 'Pin is required';
+            errors.as_pin = 'ca_danger';
+        }
+
+        if (
+            errors.as_line1 ||
+            errors.as_line2 ||
+            errors.as_country ||
+            errors.as_state ||
+            errors.as_city ||
+            errors.as_district ||
+            errors.as_pin
+        ) {
+            errors.as = 'Address of service fields can not be empty';
         }
         if (!values.appellant_mobile_no) {
             errors.appellant_mobile_no = 'Mobile Number is required';
+            errors.appellant_mobile_err = 'ca_danger';
         } else if (!mobile_regex.test(values.appellant_mobile_no)) {
             errors.appellant_mobile_no = 'Please enter a valid Mobile Number';
+            errors.appellant_mobile_err = 'ca_danger';
         }
 
         if (!values.appellant_email_id) {
             errors.appellant_email_id = 'Email Address is required';
+            errors.appellant_email_err = 'ca_danger';
         } else if (!email_regex.test(values.appellant_email_id)) {
             errors.appellant_email_id = 'Please enter a valid Email';
+            errors.appellant_email_err = 'ca_danger';
         }
 
         if (!values.res_first_name) {
-            errors.res_first_name = 'First Name is required';
+            errors.res_first_name = 'ca_danger';
+            errors.res_fullname = 'Respondent name can not be empty';
         }
         if (!values.res_last_name) {
-            errors.res_last_name = 'Last Name is required';
+            errors.res_last_name = 'ca_danger';
         }
         if (!values.res_ao_line1) {
-            errors.res_ao_line1 = 'Address Line 1 is required';
+            errors.res_ao_line1 = 'ca_danger';
         }
         if (!values.res_ao_line2) {
-            errors.res_ao_line2 = 'Address Line 2 is required';
+            errors.res_ao_line2 = 'ca_danger';
         }
         if (!values.res_ao_country) {
-            errors.res_ao_country = 'Country is required';
+            errors.res_ao_country = 'ca_danger';
         }
         if (!values.res_ao_state) {
-            errors.res_ao_state = 'State is required';
+            errors.res_ao_state = 'ca_danger';
         }
         if (!values.res_ao_city) {
-            errors.res_ao_city = 'City is required';
+            errors.res_ao_city = 'ca_danger';
         }
         if (!values.res_ao_district) {
-            errors.res_ao_district = 'District is required';
+            errors.res_ao_district = 'ca_danger';
         }
         if (!values.res_ao_pin) {
-            errors.res_ao_pin = 'Pin is required';
+            errors.res_ao_pin = 'ca_danger';
+        }
+        if (
+            errors.res_ao_line1 ||
+            errors.res_ao_line2 ||
+            errors.res_ao_country ||
+            errors.res_ao_state ||
+            errors.res_ao_city ||
+            errors.res_ao_district ||
+            errors.res_ao_pin
+        ) {
+            errors.res_ao = 'Address of Office fields can not be empty';
         }
         if (!values.res_as_line1) {
-            errors.res_as_line1 = 'Address Line 1 is required';
+            errors.res_as_line1 = 'ca_danger';
         }
         if (!values.res_as_line2) {
-            errors.res_as_line2 = 'Address Line 2 is required';
+            errors.res_as_line2 = 'ca_danger';
         }
         if (!values.res_as_country) {
-            errors.res_as_country = 'Country is required';
+            errors.res_as_country = 'ca_danger';
         }
         if (!values.res_as_state) {
-            errors.res_as_state = 'State is required';
+            errors.res_as_state = 'ca_danger';
         }
         if (!values.res_as_city) {
-            errors.res_as_city = 'City is required';
+            errors.res_as_city = 'ca_danger';
         }
         if (!values.res_as_district) {
-            errors.res_as_district = 'District is required';
+            errors.res_as_district = 'ca_danger';
         }
         if (!values.res_as_pin) {
-            errors.res_as_pin = 'Pin is required';
+            errors.res_as_pin = 'ca_danger';
+        }
+
+        if (
+            errors.res_as_line1 ||
+            errors.res_as_line2 ||
+            errors.res_as_country ||
+            errors.res_as_state ||
+            errors.res_as_city ||
+            errors.res_as_district ||
+            errors.res_as_pin
+        ) {
+            errors.res_as = 'Address of service fields can not be empty';
         }
         if (!values.res_mobile_no) {
             errors.res_mobile_no = 'Mobile Number is required';
+            errors.res_mobile_err = 'ca_danger';
         } else if (!mobile_regex.test(values.res_mobile_no)) {
             errors.res_mobile_no = 'Please enter a valid Mobile Number';
+            errors.res_mobile_err = 'ca_danger';
         }
 
         if (!values.res_email_id) {
             errors.res_email_id = 'Email Address is required';
+            errors.res_email_err = 'ca_danger';
         } else if (!email_regex.test(values.res_email_id)) {
             errors.res_email_id = 'Please enter a valid Email';
+            errors.res_email_err = 'ca_danger';
         }
 
         if (!values.reg_num) {
             errors.reg_num = 'Project Registration Number is required';
+            errors.reg_num_err = 'ca_danger';
         }
         if (!values.facts_of_case) {
             errors.facts_of_case = 'Please specify Facts of the case';
+            errors.facts_of_case_err = 'ca_danger';
         }
         if (!values.ground_of_appeal) {
             errors.ground_of_appeal = 'Please specify Grounds of Appeal';
+            errors.ground_of_appeal_err = 'ca_danger';
         }
         if (!values.reliefs_sought) {
             errors.reliefs_sought = 'Please specify Relief(s) Sought';
+            errors.reliefs_sought_err = 'ca_danger';
         }
         return errors;
     };
@@ -210,860 +282,714 @@ const CreateAppealDetails = ({
     } = formData;
 
     return (
-        <section className="section-form mb-5">
-            <div className="container mt-5 d-flex flex-column align-items-center">
-                <form
-                    className="row g-3"
-                    // onSubmit={(e) => onSubmit(e)}
-                >
-                    <h5>1. Particulars of the Appellant</h5>
-                    <h6>Name of the Appellant</h6>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="firstName" className="form-label">
-                            First Name
-                        </label>
+        <div className="ca_body ca_div testbox">
+            <div className="ca_form">
+                <div className="ca_div banner">
+                    <h1 className="ca_h1">Form C</h1>
+                </div>
+
+                <h5 className="ca_h5">1. Particulars of the Appellant</h5>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Name of the Appellant<span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.fullname
+                                ? `(${formErrors.fullname})`
+                                : null}
+                        </span>
+                    </p>
+                    <div className="ca_div name-item">
                         <input
+                            className={`ca_input ${formErrors.first_name}`}
                             type="text"
-                            className="form-control"
-                            id="firstName"
+                            placeholder="First Name"
                             name="first_name"
                             value={first_name}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.first_name}
-                        </p>
-                    </div>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="lastName" className="form-label">
-                            Last Name
-                        </label>
+
                         <input
+                            className={`ca_input ${formErrors.last_name}`}
                             type="text"
-                            className="form-control"
-                            id="lastName"
+                            placeholder="Last Name"
                             name="last_name"
                             value={last_name}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.last_name}
-                        </p>
                     </div>
-                    <h6>
+                </div>
+                <div className="ca_div item">
+                    <p className="ca_p">
                         Address of the Existing Office/ Residence of the
-                        Appellant
-                    </h6>
-                    <div className="mb-3 required">
-                        <label htmlFor="AddLine1" className="form-label">
-                            Address Line 1
-                        </label>
+                        Appellant<span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.ar ? `(${formErrors.ar})` : null}
+                        </span>
+                    </p>
+                    <input
+                        className={`ca_input ${formErrors.ar_line1}`}
+                        type="text"
+                        placeholder="Address Line 1"
+                        name="ar_line1"
+                        value={ar_line1}
+                        onChange={(e) => onChange(e)}
+                    />
+                    <input
+                        className={`ca_input ${formErrors.ar_line2}`}
+                        type="text"
+                        placeholder="Address Line 2"
+                        name="ar_line2"
+                        value={ar_line2}
+                        onChange={(e) => onChange(e)}
+                    />
+                    <div className="ca_div city-item">
+                        {/* <select className="ca_select" required>
+                            <option value="">Country</option>
+                            <option value="1">Russia</option>
+                            <option value="2">Germany</option>
+                            <option value="3">France</option>
+                            <option value="4">Armenia</option>
+                            <option value="5">USA</option>
+                        </select> */}
                         <input
+                            className={`ca_input ${formErrors.ar_country}`}
                             type="text"
-                            className="form-control"
-                            id="AddLine1"
-                            name="ar_line1"
-                            value={ar_line1}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.ar_line1}
-                        </p>
-                    </div>
-                    <div className="mb-3 required">
-                        <label htmlFor="AddLine2" className="form-label">
-                            Address Line 2
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="AddLine2"
-                            name="ar_line2"
-                            value={ar_line2}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.ar_line2}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="country" className="form-label">
-                            Country
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="country"
+                            placeholder="Country"
                             name="ar_country"
                             value={ar_country}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.ar_country}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="state" className="form-label">
-                            State
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.ar_state}`}
                             type="text"
-                            className="form-control"
-                            id="state"
+                            placeholder="State"
                             name="ar_state"
                             value={ar_state}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.ar_state}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3">
-                        <label htmlFor="landmark" className="form-label">
-                            Landmark
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.ar_district}`}
                             type="text"
-                            className="form-control"
-                            id="landmark"
-                            name="ar_landmark"
-                            value={ar_landmark}
-                            onChange={(e) => onChange(e)}
-                        />
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="city" className="form-label">
-                            City
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="city"
-                            name="ar_city"
-                            value={ar_city}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.ar_city}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="district" className="form-label">
-                            District
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="district"
+                            placeholder="District"
                             name="ar_district"
                             value={ar_district}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.ar_district}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="pin" className="form-label">
-                            Pin
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.ar_city}`}
                             type="text"
-                            className="form-control"
-                            id="pin"
+                            placeholder="City"
+                            name="ar_city"
+                            value={ar_city}
+                            onChange={(e) => onChange(e)}
+                        />
+                        <input
+                            className="ca_input"
+                            type="text"
+                            placeholder="Landmark/region"
+                            name="ar_landmark"
+                            value={ar_landmark}
+                            onChange={(e) => onChange(e)}
+                        />
+                        <input
+                            className={`ca_input ${formErrors.ar_pin}`}
+                            type="text"
+                            placeholder="Postal / Zip code"
                             name="ar_pin"
                             value={ar_pin}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.ar_pin}
-                        </p>
                     </div>
-                    <h6>Address for Service of all Notices</h6>
-                    <div className="mb-3 required">
-                        <label htmlFor="serAddLine1" className="form-label">
-                            Address Line 1
-                        </label>
+                </div>
+
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Address for Service of all Notices
+                        <span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.as ? `(${formErrors.as})` : null}
+                        </span>
+                    </p>
+                    <input
+                        className={`ca_input ${formErrors.as_line1}`}
+                        type="text"
+                        placeholder="Address Line 1"
+                        name="as_line1"
+                        value={as_line1}
+                        onChange={(e) => onChange(e)}
+                    />
+                    <input
+                        className={`ca_input ${formErrors.as_line2}`}
+                        type="text"
+                        placeholder="Address Line 2"
+                        name="as_line2"
+                        value={as_line2}
+                        onChange={(e) => onChange(e)}
+                    />
+                    <div className="ca_div city-item">
+                        {/* <select className="ca_select" required>
+                            <option value="">Country</option>
+                            <option value="1">Russia</option>
+                            <option value="2">Germany</option>
+                            <option value="3">France</option>
+                            <option value="4">Armenia</option>
+                            <option value="5">USA</option>
+                        </select> */}
                         <input
+                            className={`ca_input ${formErrors.as_country}`}
                             type="text"
-                            className="form-control"
-                            id="serAddLine1"
-                            name="as_line1"
-                            value={as_line1}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.as_line1}
-                        </p>
-                    </div>
-                    <div className="mb-3 required">
-                        <label htmlFor="serAddLine2" className="form-label">
-                            Address Line 2
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="serAddLine2"
-                            name="as_line2"
-                            value={as_line2}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.as_line2}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="serAddCountry" className="form-label">
-                            Country
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="country"
+                            placeholder="Country"
                             name="as_country"
                             value={as_country}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.as_country}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="serAddState" className="form-label">
-                            State
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.as_state}`}
                             type="text"
-                            className="form-control"
-                            id="state"
+                            placeholder="State"
                             name="as_state"
                             value={as_state}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.as_state}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3">
-                        <label htmlFor="serLandMark" className="form-label">
-                            Landmark
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.as_district}`}
                             type="text"
-                            className="form-control"
-                            id="serLandMark"
-                            name="as_landmark"
-                            value={as_landmark}
-                            onChange={(e) => onChange(e)}
-                        />
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="SerAddCity" className="form-label">
-                            City
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="SerAddCity"
-                            name="as_city"
-                            value={as_city}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.as_city}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="SerAddDistrict" className="form-label">
-                            District
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="SerAddDistrict"
+                            placeholder="District"
                             name="as_district"
                             value={as_district}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.as_district}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="serAddPin" className="form-label">
-                            Pin
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.as_city}`}
                             type="text"
-                            className="form-control"
-                            id="serAddPin"
+                            placeholder="City"
+                            name="as_city"
+                            value={as_city}
+                            onChange={(e) => onChange(e)}
+                        />
+                        <input
+                            className="ca_input"
+                            type="text"
+                            placeholder="Landmark/region"
+                            name="as_landmark"
+                            value={as_landmark}
+                            onChange={(e) => onChange(e)}
+                        />
+                        <input
+                            className={`ca_input ${formErrors.as_pin}`}
+                            type="text"
+                            placeholder="Postal / Zip code"
                             name="as_pin"
                             value={as_pin}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.as_pin}
-                        </p>
                     </div>
-                    <h6>Contact Details</h6>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="mobileNumber" className="form-label">
-                            Mobile Number
-                        </label>
+                </div>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Contact Details<span className="required">*</span>
+                    </p>
+                </div>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Phone<span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.appellant_mobile_no
+                                ? `(${formErrors.appellant_mobile_no})`
+                                : null}
+                        </span>
+                    </p>
+                    <input
+                        className={`ca_input ${formErrors.appellant_mobile_err}`}
+                        type="text"
+                        placeholder="Mobile number"
+                        name="appellant_mobile_no"
+                        value={appellant_mobile_no}
+                        onChange={(e) => onChange(e)}
+                    />
+                </div>
+
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Email<span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.appellant_email_id
+                                ? `(${formErrors.appellant_email_id})`
+                                : null}
+                        </span>
+                    </p>
+                    <input
+                        className={`ca_input ${formErrors.appellant_email_err}`}
+                        type="email"
+                        name="appellant_email_id"
+                        value={appellant_email_id}
+                        onChange={(e) => onChange(e)}
+                    />
+                </div>
+                <h5 className="ca_h5">2. Particulars of the Respondent:</h5>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Name of the Respondent
+                        <span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.res_fullname
+                                ? `(${formErrors.res_fullname})`
+                                : null}
+                        </span>
+                    </p>
+                    <div className="ca_div name-item">
                         <input
+                            className={`ca_input ${formErrors.res_first_name}`}
                             type="text"
-                            className="form-control"
-                            id="mobileNumber"
-                            name="appellant_mobile_no"
-                            value={appellant_mobile_no}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.appellant_mobile_no}
-                        </p>
-                    </div>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="emailAdd" className="form-label">
-                            Email Address
-                        </label>
-                        <input
-                            type="email"
-                            className="form-control"
-                            id="emailAdd"
-                            name="appellant_email_id"
-                            value={appellant_email_id}
-                            placeholder="name@example.com"
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.appellant_email_id}
-                        </p>
-                    </div>
-                    <h5>2. Particulars of the Respondent</h5>
-                    <h6>Name of the Respondent</h6>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="resfirstName" className="form-label">
-                            First Name
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="resfirstName"
+                            placeholder="First Name"
                             name="res_first_name"
                             value={res_first_name}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_first_name}
-                        </p>
-                    </div>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="reslastName" className="form-label">
-                            Last Name
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.res_last_name}`}
                             type="text"
-                            className="form-control"
-                            id="reslastName"
+                            placeholder="Last Name"
                             name="res_last_name"
                             value={res_last_name}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_last_name}
-                        </p>
                     </div>
-                    <h6>Office Address of the Respondent</h6>
-                    <div className="mb-3 required">
-                        <label htmlFor="resAddLine1" className="form-label">
-                            Address Line 1
-                        </label>
+                </div>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Office Address of the Respondent
+                        <span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.res_ao
+                                ? `(${formErrors.res_ao})`
+                                : null}
+                        </span>
+                    </p>
+                    <input
+                        className={`ca_input ${formErrors.res_ao_line1}`}
+                        type="text"
+                        placeholder="Address Line 1"
+                        name="res_ao_line1"
+                        value={res_ao_line1}
+                        onChange={(e) => onChange(e)}
+                    />
+                    <input
+                        className={`ca_input ${formErrors.res_ao_line2}`}
+                        type="text"
+                        placeholder="Address Line 2"
+                        name="res_ao_line2"
+                        value={res_ao_line2}
+                        onChange={(e) => onChange(e)}
+                    />
+                    <div className="ca_div city-item">
+                        {/* <select className="ca_select" required>
+                            <option value="">Country</option>
+                            <option value="1">Russia</option>
+                            <option value="2">Germany</option>
+                            <option value="3">France</option>
+                            <option value="4">Armenia</option>
+                            <option value="5">USA</option>
+                        </select> */}
                         <input
+                            className={`ca_input ${formErrors.res_ao_country}`}
                             type="text"
-                            className="form-control"
-                            id="resAddLine1"
-                            name="res_ao_line1"
-                            value={res_ao_line1}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_ao_line1}
-                        </p>
-                    </div>
-                    <div className="mb-3 required">
-                        <label htmlFor="resAddLine2" className="form-label">
-                            Address Line 2
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="resAddLine2"
-                            name="res_ao_line2"
-                            value={res_ao_line2}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_ao_line2}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="resCountry" className="form-label">
-                            Country
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="country"
+                            placeholder="Country"
                             name="res_ao_country"
                             value={res_ao_country}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_ao_country}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="resState" className="form-label">
-                            State
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.res_ao_state}`}
                             type="text"
-                            className="form-control"
-                            id="state"
+                            placeholder="State"
                             name="res_ao_state"
                             value={res_ao_state}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_ao_state}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3">
-                        <label htmlFor="resLandmark" className="form-label">
-                            Landmark
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.res_ao_district}`}
                             type="text"
-                            className="form-control"
-                            id="resLandmark"
-                            name="res_ao_landmark"
-                            value={res_ao_landmark}
-                            onChange={(e) => onChange(e)}
-                        />
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="resCity" className="form-label">
-                            City
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="resCity"
-                            name="res_ao_city"
-                            value={res_ao_city}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_ao_city}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="resDistrict" className="form-label">
-                            District
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="resDistrict"
+                            placeholder="District"
                             name="res_ao_district"
                             value={res_ao_district}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_ao_district}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="resPin" className="form-label">
-                            Pin
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.res_ao_city}`}
                             type="text"
-                            className="form-control"
-                            id="resPin"
+                            placeholder="City"
+                            name="res_ao_city"
+                            value={res_ao_city}
+                            onChange={(e) => onChange(e)}
+                        />
+                        <input
+                            className="ca_input"
+                            type="text"
+                            placeholder="Landmark/region"
+                            name="res_ao_landmark"
+                            value={res_ao_landmark}
+                            onChange={(e) => onChange(e)}
+                        />
+                        <input
+                            className={`ca_input ${formErrors.res_ao_pin}`}
+                            type="text"
+                            placeholder="Postal / Zip code"
                             name="res_ao_pin"
                             value={res_ao_pin}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_ao_pin}
-                        </p>
                     </div>
-                    <h6>Address for Service of all Notices</h6>
-                    <div className="mb-3 required">
-                        <label htmlFor="ResSerAddLine1" className="form-label">
-                            Address Line 1
-                        </label>
+                </div>
+
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Address for Service of all Notices
+                        <span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.res_as
+                                ? `(${formErrors.res_as})`
+                                : null}
+                        </span>
+                    </p>
+                    <input
+                        className={`ca_input ${formErrors.res_as_line1}`}
+                        type="text"
+                        placeholder="Address Line 1"
+                        name="res_as_line1"
+                        value={res_as_line1}
+                        onChange={(e) => onChange(e)}
+                    />
+                    <input
+                        className={`ca_input ${formErrors.res_as_line2}`}
+                        type="text"
+                        placeholder="Address Line 2"
+                        name="res_as_line2"
+                        value={res_as_line2}
+                        onChange={(e) => onChange(e)}
+                    />
+                    <div className="ca_div city-item">
+                        {/* <select className="ca_select" required>
+                            <option value="">Country</option>
+                            <option value="1">Russia</option>
+                            <option value="2">Germany</option>
+                            <option value="3">France</option>
+                            <option value="4">Armenia</option>
+                            <option value="5">USA</option>
+                        </select> */}
                         <input
+                            className={`ca_input ${formErrors.res_as_country}`}
                             type="text"
-                            className="form-control"
-                            id="ResSerAddLine1"
-                            name="res_as_line1"
-                            value={res_as_line1}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_as_line1}
-                        </p>
-                    </div>
-                    <div className="mb-3 required">
-                        <label htmlFor="ResSerAddLine2" className="form-label">
-                            Address Line 2
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="ResSerAddLine2"
-                            name="res_as_line2"
-                            value={res_as_line2}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_as_line2}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="ResSerCountry" className="form-label">
-                            Country
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="country"
+                            placeholder="Country"
                             name="res_as_country"
                             value={res_as_country}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_as_country}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="ResSerState" className="form-label">
-                            State
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.res_as_state}`}
                             type="text"
-                            className="form-control"
-                            id="state"
+                            placeholder="State"
                             name="res_as_state"
                             value={res_as_state}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_as_state}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3">
-                        <label htmlFor="ResSerLandmark" className="form-label">
-                            Landmark
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.res_as_district}`}
                             type="text"
-                            className="form-control"
-                            id="ResSerLandmark"
-                            name="res_as_landmark"
-                            value={res_as_landmark}
-                            onChange={(e) => onChange(e)}
-                        />
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="ResSerCity" className="form-label">
-                            City
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="ResSerCity"
-                            name="res_as_city"
-                            value={res_as_city}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_as_city}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="ResSerDistrict" className="form-label">
-                            District
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="ResSerDistrict"
+                            placeholder="District"
                             name="res_as_district"
                             value={res_as_district}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_as_district}
-                        </p>
-                    </div>
-                    <div className="col-md-4 mb-3 required">
-                        <label htmlFor="ResSerPin" className="form-label">
-                            Pin
-                        </label>
                         <input
+                            className={`ca_input ${formErrors.res_as_city}`}
                             type="text"
-                            className="form-control"
-                            id="ResSerPin"
+                            placeholder="City"
+                            name="res_as_city"
+                            value={res_as_city}
+                            onChange={(e) => onChange(e)}
+                        />
+                        <input
+                            className="ca_input"
+                            type="text"
+                            placeholder="Landmark/region"
+                            name="res_as_landmark"
+                            value={res_as_landmark}
+                            onChange={(e) => onChange(e)}
+                        />
+                        <input
+                            className={`ca_input ${formErrors.res_as_pin}`}
+                            type="text"
+                            placeholder="Postal / Zip code"
                             name="res_as_pin"
                             value={res_as_pin}
                             onChange={(e) => onChange(e)}
                         />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_as_pin}
-                        </p>
                     </div>
-                    <h6>Contact Details</h6>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="resMobileNumber" className="form-label">
-                            Mobile Number
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="resMobileNumber"
-                            name="res_mobile_no"
-                            value={res_mobile_no}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_mobile_no}
-                        </p>
-                    </div>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="resEmail" className="form-label">
-                            Email Address
-                        </label>
-                        <input
-                            type="email"
-                            className="form-control"
-                            id="resEmail"
-                            name="res_email_id"
-                            value={res_email_id}
-                            placeholder="name@example.com"
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.res_email_id}
-                        </p>
-                    </div>
-                    <h5>3. Jurisdiction of the Appellant Tribunal :</h5>
-                    <div className="mb-3 form-check">
-                        <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id="juridiction"
-                            name="is_juridiction"
-                            value={is_within_jurisdiction}
-                            checked={is_within_jurisdiction}
-                            onChange={(e) => handleCheck(e)}
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="juridiction"
-                        >
-                            The appellant declares that the subject matter of
-                            the appeal falls within the jurisdiction of the
-                            Appellate Tribunal
-                        </label>
-                    </div>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="registrationNum" className="form-label">
-                            Project Registration Number
-                        </label>
+                </div>
 
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="registrationNum"
-                            name="reg_num"
-                            value={reg_num}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.reg_num}
-                        </p>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Contact Details<span className="required">*</span>
+                    </p>
+                </div>
+
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Phone<span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.res_mobile_no
+                                ? `(${formErrors.res_mobile_no})`
+                                : null}
+                        </span>
+                    </p>
+                    <input
+                        className={`ca_input ${formErrors.res_mobile_err}`}
+                        type="text"
+                        placeholder="Mobile Number"
+                        name="res_mobile_no"
+                        value={res_mobile_no}
+                        onChange={(e) => onChange(e)}
+                    />
+                </div>
+
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Email<span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.res_email_id
+                                ? `(${formErrors.res_email_id})`
+                                : null}
+                        </span>
+                    </p>
+                    <input
+                        className={`ca_input ${formErrors.res_email_err}`}
+                        type="email"
+                        name="res_email_id"
+                        value={res_email_id}
+                        onChange={(e) => onChange(e)}
+                    />
+                </div>
+                <h5 className="ca_h5">
+                    3. Jurisdiction of the Appellant Tribunal
+                </h5>
+                <div className="ca_div question">
+                    <div className="ca_div question-answer checkbox-item">
+                        <div className="ca_div">
+                            <input
+                                className="ca_input"
+                                type="checkbox"
+                                id="check_3"
+                                name="is_within_jurisdiction"
+                                value={is_within_jurisdiction}
+                                checked={is_within_jurisdiction}
+                                onChange={(e) => handleCheck(e)}
+                            />
+                            <label htmlFor="check_3" className="check">
+                                <span>
+                                    The appellant declares that the subject
+                                    matter of the appeal falls within the
+                                    jurisdiction of the Appellate Tribunal
+                                </span>
+                            </label>
+                        </div>
                     </div>
-                    <h5>4. Limitation :</h5>
-                    <div className="mb-3 form-check">
-                        <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id="limitationCheck"
-                            name="is_limitation_specified"
-                            value={is_limitation_specified}
-                            checked={is_limitation_specified}
-                            onChange={(e) => {
-                                handleCheck(e);
-                                if (!is_limitation_specified) {
-                                    setFormData({
-                                        ...formData,
-                                        is_limitation_specified:
-                                            e.target.checked,
-                                        reason_for_delay: '',
-                                    });
-                                }
-                            }}
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="limitationCheck"
-                        >
-                            The appellant declares that the appeal is within the
-                            limitation specified in sub-section (2) of section
-                            44
-                        </label>
+                </div>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Project Registration Number
+                        <span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.reg_num
+                                ? `(${formErrors.reg_num})`
+                                : null}
+                        </span>
+                    </p>
+                    <input
+                        className="ca_input"
+                        type="text"
+                        placeholder="Project Registration Number"
+                        name="reg_num"
+                        value={reg_num}
+                        onChange={(e) => onChange(e)}
+                    />
+                </div>
+                <h5 className="ca_h5">4. Limitation</h5>
+                <div className="ca_div question">
+                    <div className="ca_div question-answer checkbox-item">
+                        <div className="ca_div">
+                            <input
+                                className="ca_input"
+                                type="checkbox"
+                                id="check_4"
+                                name="is_limitation_specified"
+                                value={is_limitation_specified}
+                                checked={is_limitation_specified}
+                                onChange={(e) => {
+                                    handleCheck(e);
+                                    if (!is_limitation_specified) {
+                                        setFormData({
+                                            ...formData,
+                                            is_limitation_specified:
+                                                e.target.checked,
+                                            reason_for_delay: '',
+                                        });
+                                    }
+                                }}
+                            />
+                            <label htmlFor="check_4" className="check">
+                                <span>
+                                    The appellant declares that the appeal is
+                                    within the limitation specified in
+                                    sub-section (2) of section 44
+                                </span>
+                            </label>
+                        </div>
                     </div>
-                    <p style={{ textAlign: 'center' }}>OR</p>
-                    <div className="col-md-6 mb-3">
-                        <label
-                            htmlFor="limitationReason"
-                            className="form-label"
-                        >
-                            If the appeal is filed after the expiry of the
-                            limitation period specified under sub-section (2) of
-                            section 44 specify reasons for delay:
-                        </label>
+                </div>
+                <div className="ca_div item">
+                    <p className="ca_p">Or</p>
+                </div>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        If the appeal is filed after the expiry of the
+                        limitation period specified under sub-section (2) of
+                        section 44 specify reasons for delay.
+                    </p>
+                    <textarea
+                        className="ca_textarea"
+                        rows="3"
+                        name="reason_for_delay"
+                        disabled={is_limitation_specified}
+                        value={reason_for_delay}
+                        onChange={(e) => onChange(e)}
+                    ></textarea>
+                </div>
+                <h5 className="ca_h5">5. Facts of the case</h5>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Give concise statement of facts and grounds of appeal
+                        against the specific order of the Authority of the
+                        Adjudicating Officer, as the case may be passed under.
+                        <span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.facts_of_case
+                                ? `(${formErrors.facts_of_case})`
+                                : null}
+                        </span>
+                    </p>
+                    <textarea
+                        className={`ca_textarea ${formErrors.facts_of_case_err}`}
+                        rows="6"
+                        name="facts_of_case"
+                        value={facts_of_case}
+                        onChange={(e) => onChange(e)}
+                    ></textarea>
+                </div>
+                <h5 className="ca_h5">6. Grounds of Appeal</h5>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Please Specify the grounds of the Appeal.
+                        <span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.ground_of_appeal
+                                ? `(${formErrors.ground_of_appeal})`
+                                : null}
+                        </span>
+                    </p>
+                    <textarea
+                        className={`ca_textarea ${formErrors.ground_of_appeal_err}`}
+                        rows="6"
+                        name="ground_of_appeal"
+                        value={ground_of_appeal}
+                        onChange={(e) => onChange(e)}
+                    ></textarea>
+                </div>
+
+                <h5 className="ca_h5">7. Relief(s) sought</h5>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Specify the relief(s) sought explaining the grounds of
+                        relief(s) and the legal provisions(if any) relied upon.
+                        <span className="required">*</span>
+                        &nbsp;
+                        <span className="text-danger">
+                            {formErrors.reliefs_sought
+                                ? `(${formErrors.reliefs_sought})`
+                                : null}
+                        </span>
+                    </p>
+                    <textarea
+                        className={`ca_textarea ${formErrors.reliefs_sought_err}`}
+                        rows="6"
+                        name="reliefs_sought"
+                        value={reliefs_sought}
+                        onChange={(e) => onChange(e)}
+                    ></textarea>
+                </div>
+                <h5 className="ca_h5">8. Interim order, if prayed for</h5>
+                <div className="ca_div item">
+                    <p className="ca_p">
+                        Pending final decision on the appeal, the appellant
+                        seeks issue of the following interim order: [Give here
+                        the nature of the interim order prayed for with reasons]
+                    </p>
+                    <textarea
+                        className="ca_textarea"
+                        rows="6"
+                        name="interim_order"
+                        value={interim_order}
+                        onChange={(e) => onChange(e)}
+                    ></textarea>
+                </div>
+                <h5 className="ca_h5">
+                    9. Matter not pending with any other court, etc:
+                </h5>
+                <div className="ca_div question">
+                    <div className="ca_div question-answer checkbox-item">
+                        <div>
+                            <input
+                                className="ca_input"
+                                type="checkbox"
+                                id="check_9"
+                                name="is_matter_pending"
+                                value={is_matter_pending}
+                                checked={is_matter_pending}
+                                onChange={(e) => handleCheck(e)}
+                            />
+                            <label htmlFor="check_9" className="check">
+                                <span>
+                                    The appellant further declares that the
+                                    matter regarding which this appeal has been
+                                    made, is not pending before any court of law
+                                    or any other authority or any other
+                                    Tribunal(s).
+                                </span>
+                            </label>
+                        </div>
                     </div>
-                    <div className="col-md-6 mb-3 ">
-                        <textarea
-                            rows="10"
-                            className="form-control"
-                            id="limitationReason"
-                            name="reason_for_delay"
-                            disabled={is_limitation_specified}
-                            value={reason_for_delay}
-                            onChange={(e) => onChange(e)}
-                        />
-                    </div>
-                    <h5>5. Facts of the case:</h5>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="facts" className="form-label">
-                            Give concise statement of facts and grounds of
-                            appeal against the specific order of the Authority
-                            of the Adjudicating Officer, as the case may be
-                            passed under :
-                        </label>
-                    </div>
-                    <div className="col-md-6 mb-3">
-                        <textarea
-                            rows="10"
-                            className="form-control"
-                            id="facts"
-                            name="facts_of_case"
-                            value={facts_of_case}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.facts_of_case}
-                        </p>
-                    </div>
-                    <h5>6. Grounds of Appeal</h5>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="groundsOfAppeal" className="form-label">
-                            Please Specify the grounds of the Appeal:
-                        </label>
-                    </div>
-                    <div className="col-md-6 mb-3">
-                        <textarea
-                            rows="10"
-                            className="form-control"
-                            id="groundsOfAppeal"
-                            name="ground_of_appeal"
-                            value={ground_of_appeal}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.ground_of_appeal}
-                        </p>
-                    </div>
-                    <h5>7. Relief(s) sought</h5>
-                    <div className="col-md-6 mb-3 required">
-                        <label htmlFor="reliefSought" className="form-label">
-                            Specify the relief(s) sought explaining the grounds
-                            of relief(s) and the legal provisions(if any) relied
-                            upon:
-                        </label>
-                    </div>
-                    <div className="col-md-6 mb-3">
-                        <textarea
-                            rows="10"
-                            className="form-control"
-                            id="reliefSought"
-                            name="reliefs_sought"
-                            value={reliefs_sought}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <p className="invalid-feedback d-block">
-                            {formErrors.reliefs_sought}
-                        </p>
-                    </div>
-                    <h5>8. Interim order, if prayed for</h5>
-                    <div className="col-md-6 mb-3">
-                        <label htmlFor="interimOrder" className="form-label">
-                            Pending final decision on the appeal, the appellant
-                            seeks issue of the following interim order: [Give
-                            here the nature of the interim order prayed for with
-                            reasons]
-                        </label>
-                    </div>
-                    <div className="col-md-6 mb-3">
-                        <textarea
-                            rows="10"
-                            className="form-control"
-                            id="interimOrder"
-                            name="interim_order"
-                            value={interim_order}
-                            onChange={(e) => onChange(e)}
-                        />
-                    </div>
-                    <h5>9. Matter not pending with any other court, etc:</h5>
-                    <div className="mb-3 form-check">
-                        <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id="matterPendingCheck"
-                            name="is_matter_pending"
-                            value={is_matter_pending}
-                            checked={is_matter_pending}
-                            onChange={(e) => handleCheck(e)}
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="matterPendingCheck"
-                        >
-                            The appellant further declares that the matter
-                            regarding which this appeal has been made, is not
-                            pending before any court of law or any other
-                            authority or any other Tribunal(s).{' '}
-                        </label>
-                    </div>{' '}
-                    {/* <div className="col-md-12 mb-3 ">
-                        <button
-                            type="submit"
-                            className="btn btn-primary"
-                        >
-                            Submit
-                        </button>
-                    </div> */}
-                </form>
-                <button onClick={next} className="btn btn-outline-primary ">
-                    Submit
-                </button>
+                </div>
+
+                <div className="ca_div btn-block">
+                    <button onClick={next} className="ca_button">
+                        Preview
+                    </button>
+                </div>
             </div>
-        </section>
+        </div>
     );
 };
 
