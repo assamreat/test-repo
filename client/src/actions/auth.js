@@ -10,6 +10,7 @@ import {
     APPELLANT_USER_LOADED,
     LOGOUT,
     GET_ERRORS,
+    CLEAR_ERRORS,
 } from './types';
 
 // Load user
@@ -109,6 +110,10 @@ export const register = (formData) => async (dispatch) => {
             payload: res.data,
         });
 
+        dispatch({
+            type: CLEAR_ERRORS,
+        });
+
         dispatch(loadUserAppellant());
     } catch (err) {
         const errors = err.response.data;
@@ -145,6 +150,10 @@ export const appellantLogin = (email, password) => async (dispatch) => {
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data,
+        });
+
+        dispatch({
+            type: CLEAR_ERRORS,
         });
 
         dispatch(loadUserAppellant());
