@@ -48,7 +48,7 @@ const Login = ({
 
     // Redirect if Logged in and Appellant
     if (isAuthenticated && userType === 'APPELLANT') {
-        return <Redirect to="/appellant/create-appeal" />;
+        return <Redirect to="/appellant/dashboard" />;
     }
 
     return (

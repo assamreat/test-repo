@@ -53,7 +53,7 @@ const Register = ({ auth: { isAuthenticated, userType }, register }) => {
 
     // Redirect if Logged in and Appellant
     if (isAuthenticated && userType === 'APPELLANT') {
-        return <Redirect to="/appellant/create-appeal" />;
+        return <Redirect to="/appellant/dashboard" />;
     }
     return (
         <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
