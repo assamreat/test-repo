@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { appellantLogin } from '../../../../actions/auth';
 import { connect } from 'react-redux';
+
+import { appellantLogin } from '../../../../actions/auth';
+import { clearErrors } from '../../../../actions/errors';
 
 const Login = ({
     appellantLogin,
+    clearErrors,
     auth: { isAuthenticated, userType },
     serverErrors,
 }) => {
@@ -26,6 +29,10 @@ const Login = ({
 
         appellantLogin(email, password);
     };
+
+    useEffect(() => {
+        clearErrors();
+    }, []);
 
     const isFirstRender = useRef(true);
     useEffect(() => {
@@ -161,4 +168,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { appellantLogin })(Login);
+export default connect(mapStateToProps, { appellantLogin, clearErrors })(Login);
