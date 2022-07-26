@@ -144,7 +144,7 @@ const ChecklistShow = ({ checklist }) => {
                                 </label>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -156,7 +156,7 @@ const ChecklistShow = ({ checklist }) => {
                                 <h6>{checklist.date_of_order}</h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -171,7 +171,7 @@ const ChecklistShow = ({ checklist }) => {
                                 <h6>{checklist.date_of_communication}</h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -186,7 +186,7 @@ const ChecklistShow = ({ checklist }) => {
                                 <h6>{checklist.date_of_application}</h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -198,7 +198,7 @@ const ChecklistShow = ({ checklist }) => {
                                 <h6>{checklist.date_on_copy_ready}</h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -212,7 +212,7 @@ const ChecklistShow = ({ checklist }) => {
                                 <h6>{checklist.date_of_receipt}</h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -226,7 +226,7 @@ const ChecklistShow = ({ checklist }) => {
                                 <h6>{checklist.date_of_filing}</h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -241,7 +241,7 @@ const ChecklistShow = ({ checklist }) => {
                                 <h6>{checklist.date_of_submission_hardcopy}</h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -260,7 +260,7 @@ const ChecklistShow = ({ checklist }) => {
                                 </h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -309,7 +309,7 @@ const ChecklistShow = ({ checklist }) => {
                                 </h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -338,7 +338,7 @@ const ChecklistShow = ({ checklist }) => {
                                 </h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -362,7 +362,7 @@ const ChecklistShow = ({ checklist }) => {
                                 </h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -394,7 +394,7 @@ const ChecklistShow = ({ checklist }) => {
                                 </h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -415,7 +415,7 @@ const ChecklistShow = ({ checklist }) => {
                                 </label>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
@@ -435,7 +435,7 @@ const ChecklistShow = ({ checklist }) => {
                                 </h6>
                             </div>
 
-                            <div class="col-md-1"></div>
+                            <div className="col-md-1"></div>
 
                             <div className="col-md-5">
                                 <label className="form-label">
