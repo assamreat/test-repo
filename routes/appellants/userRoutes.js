@@ -35,7 +35,7 @@ router.post(
             return res.status(400).json(errObj);
         }
 
-        const { email, password } = req.body;
+        const { email, password, password2 } = req.body;
 
         try {
             // See if user exists
@@ -47,6 +47,14 @@ router.post(
                 return res.status(400).json({
                     email: 'User already exists',
                 });
+            }
+
+            if (password !== password2) {
+                console.log(password, password2);
+
+                return res
+                    .status(400)
+                    .json({ password2: "Repeat password doesn't match" });
             }
 
             // Create new appellant

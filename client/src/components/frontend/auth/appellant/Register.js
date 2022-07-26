@@ -28,11 +28,7 @@ const Register = ({
 
         // setFormErrors(validate(formData));
 
-        if (password !== password2) {
-            console.log('password do not match');
-        } else {
-            register({ email, password });
-        }
+        register({ email, password, password2 });
     };
 
     useEffect(() => {
@@ -52,6 +48,10 @@ const Register = ({
         }
         if (serverErrors.password) {
             errors.password = serverErrors.password;
+            errors.passwordValidationClass = 'is-invalid';
+        }
+        if (serverErrors.password2) {
+            errors.password2 = serverErrors.password2;
             errors.passwordValidationClass = 'is-invalid';
         }
 
