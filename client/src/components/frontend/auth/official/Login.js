@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login } from '../../../../actions/auth';
 
-const Login = ({ login, auth: { isAuthenticated, user } }) => {
+import { login } from '../../../../actions/auth';
+import { clearErrors } from '../../../../actions/errors';
+
+const Login = ({
+    login,
+    clearErrors,
+    serverErrors,
+    auth: { isAuthenticated, user },
+}) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
 
     const { email, password } = formData;
+
+    const [formErrors, setFormErrors] = useState({});
 
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,6 +27,29 @@ const Login = ({ login, auth: { isAuthenticated, user } }) => {
         e.preventDefault();
         login(email, password);
     };
+
+    useEffect(() => {
+        clearErrors();
+    }, []);
+
+    const isFirstRender = useRef(true);
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+        const errors = {};
+        if (serverErrors.email) {
+            errors.email = serverErrors.email;
+            errors.emailValidationClass = 'is-invalid';
+        }
+        if (serverErrors.password) {
+            errors.password = serverErrors.password;
+            errors.passwordValidationClass = 'is-invalid';
+        }
+
+        setFormErrors(errors);
+    });
 
     // Redirect if Logged in and Admin
     if (isAuthenticated && user && user.role === 'ADMIN' && user.active) {
@@ -59,13 +91,18 @@ const Login = ({ login, auth: { isAuthenticated, user } }) => {
                                             </svg> */}
                                         </span>
                                         <input
-                                            className="form-control"
+                                            className={`form-control ${formErrors.emailValidationClass}`}
                                             type="email"
                                             placeholder="Email"
                                             name="email"
                                             value={email}
                                             onChange={(e) => onChange(e)}
                                         />
+                                        {formErrors.email ? (
+                                            <p className="invalid-feedback d-block">
+                                                {formErrors.email}
+                                            </p>
+                                        ) : null}
                                     </div>
                                     <div className="input-group mb-4">
                                         <span className="input-group-text">
@@ -75,13 +112,18 @@ const Login = ({ login, auth: { isAuthenticated, user } }) => {
                                             </svg> */}
                                         </span>
                                         <input
-                                            className="form-control"
+                                            className={`form-control ${formErrors.passwordValidationClass}`}
                                             type="password"
                                             placeholder="Password"
                                             name="password"
                                             value={password}
                                             onChange={(e) => onChange(e)}
                                         />
+                                        {formErrors.password ? (
+                                            <p className="invalid-feedback d-block">
+                                                {formErrors.password}
+                                            </p>
+                                        ) : null}
                                     </div>
                                     <div className="row">
                                         <div className="col-6">
@@ -93,12 +135,12 @@ const Login = ({ login, auth: { isAuthenticated, user } }) => {
                                             </button>
                                         </div>
                                         <div className="col-6 text-end">
-                                            <button
+                                            {/* <button
                                                 className="btn btn-link px-0"
                                                 type="button"
                                             >
                                                 Forgot password?
-                                            </button>
+                                            </button> */}
                                         </div>
                                     </div>
                                 </form>
@@ -112,7 +154,7 @@ const Login = ({ login, auth: { isAuthenticated, user } }) => {
 };
 
 const mapStateToProps = (state) => {
-    return { auth: state.auth };
+    return { auth: state.auth, serverErrors: state.errors };
 };
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, clearErrors })(Login);
