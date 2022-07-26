@@ -2,8 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { register } from '../../../../actions/auth';
+import { clearErrors } from '../../../../actions/errors';
 
-const Register = ({ auth: { isAuthenticated, userType }, register }) => {
+const Register = ({
+    auth: { isAuthenticated, userType },
+    register,
+    clearErrors,
+    serverErrors,
+}) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -20,7 +26,7 @@ const Register = ({ auth: { isAuthenticated, userType }, register }) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        setFormErrors(validate(formData));
+        // setFormErrors(validate(formData));
 
         if (password !== password2) {
             console.log('password do not match');
@@ -29,27 +35,50 @@ const Register = ({ auth: { isAuthenticated, userType }, register }) => {
         }
     };
 
-    const validate = (values) => {
+    useEffect(() => {
+        clearErrors();
+    }, []);
+
+    const isFirstRender = useRef(true);
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
         const errors = {};
-        const email_regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
-
-        if (!values.email) {
-            errors.email = 'Email is required';
-        } else if (!email_regex.test(values.email)) {
-            errors.email = 'Please enter a valid Email';
+        if (serverErrors.email) {
+            errors.email = serverErrors.email;
+            errors.emailValidationClass = 'is-invalid';
         }
-        if (!values.password) {
-            errors.password = 'password is required';
-        } else if (values.password.length < 6) {
-            errors.password = 'password needs to be atleast 6 characters long';
+        if (serverErrors.password) {
+            errors.password = serverErrors.password;
+            errors.passwordValidationClass = 'is-invalid';
         }
 
-        if (values.password !== values.password2) {
-            errors.password2 = 'password do not match';
-        }
+        setFormErrors(errors);
+    });
 
-        return errors;
-    };
+    // const validate = (values) => {
+    //     const errors = {};
+    //     const email_regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+
+    //     if (!values.email) {
+    //         errors.email = 'Email is required';
+    //     } else if (!email_regex.test(values.email)) {
+    //         errors.email = 'Please enter a valid Email';
+    //     }
+    //     if (!values.password) {
+    //         errors.password = 'password is required';
+    //     } else if (values.password.length < 6) {
+    //         errors.password = 'password needs to be atleast 6 characters long';
+    //     }
+
+    //     if (values.password !== values.password2) {
+    //         errors.password2 = 'password do not match';
+    //     }
+
+    //     return errors;
+    // };
 
     // Redirect if Logged in and Appellant
     if (isAuthenticated && userType === 'APPELLANT') {
@@ -161,7 +190,8 @@ const Register = ({ auth: { isAuthenticated, userType }, register }) => {
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
+        serverErrors: state.errors,
     };
 };
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { register, clearErrors })(Register);
