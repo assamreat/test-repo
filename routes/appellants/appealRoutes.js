@@ -34,8 +34,8 @@ router.post('/appeals', validateInputAppeal, auth, async (req, res) => {
     }
 
     const {
-        first_name,
-        last_name,
+        fullname,
+
         ar_line1,
         ar_line2,
         ar_landmark,
@@ -54,8 +54,7 @@ router.post('/appeals', validateInputAppeal, auth, async (req, res) => {
         as_country,
         appellant_mobile_no,
         appellant_email_id,
-        res_first_name,
-        res_last_name,
+        res_fullname,
         res_ao_line1,
         res_ao_line2,
         res_ao_landmark,
@@ -88,8 +87,7 @@ router.post('/appeals', validateInputAppeal, auth, async (req, res) => {
 
     try {
         const appeal = Appeal.build({
-            first_name,
-            last_name,
+            fullname,
             ar_line1,
             ar_line2,
             ar_landmark,
@@ -108,8 +106,7 @@ router.post('/appeals', validateInputAppeal, auth, async (req, res) => {
             as_country,
             appellant_mobile_no,
             appellant_email_id,
-            res_first_name,
-            res_last_name,
+            res_fullname,
             res_ao_line1,
             res_ao_line2,
             res_ao_landmark,

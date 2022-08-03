@@ -109,7 +109,7 @@ const AppealShow = ({
                                     <div className="appeal mb-5">
                                         <p className="fw-bold">Between</p>
                                         <p>
-                                            {`${appeal.first_name} ${appeal.last_name} `}
+                                            {`${appeal.fullname} `}
                                             <span className="fw-bold">
                                                 Appellant(s)
                                             </span>
@@ -117,7 +117,7 @@ const AppealShow = ({
 
                                         <p className="fw-bold">And</p>
                                         <p>
-                                            {`${appeal.res_first_name} ${appeal.res_last_name} `}
+                                            {`${appeal.res_fullname} `}
                                             <span className="fw-bold">
                                                 Respondent(s)
                                             </span>
@@ -136,7 +136,7 @@ const AppealShow = ({
                                                 <span className="fw-bold">
                                                     (i) Name of the appellant:
                                                 </span>
-                                                <span>{` ${appeal.first_name} ${appeal.last_name} `}</span>
+                                                <span>{` ${appeal.fullname} `}</span>
                                             </p>
                                             <p>
                                                 <span className="fw-bold">
@@ -190,7 +190,7 @@ const AppealShow = ({
                                                 <span className="fw-bold">
                                                     (i) Name(s) of Respondent:
                                                 </span>
-                                                <span>{` ${appeal.res_first_name} ${appeal.res_last_name} `}</span>
+                                                <span>{` ${appeal.res_fullname} `}</span>
                                             </p>
                                             <p>
                                                 <span className="fw-bold">

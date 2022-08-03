@@ -81,15 +81,9 @@ module.exports = function (pdfDoc, appeal) {
         .text('1) Particulars of the appellants: ', { align: 'left' });
     pdfDoc
         .fontSize(11)
-        .text(
-            '  i)    Name of the appellant : ' +
-                appeal.first_name +
-                ' ' +
-                appeal.last_name,
-            {
-                align: 'left',
-            }
-        );
+        .text('  i)    Name of the appellant : ' + appeal.fullname, {
+            align: 'left',
+        });
     pdfDoc
         .fontSize(11)
         .text(
@@ -151,15 +145,9 @@ module.exports = function (pdfDoc, appeal) {
     });
     pdfDoc
         .fontSize(11)
-        .text(
-            ' i)    Name(s) of respondent : ' +
-                appeal.res_first_name +
-                ' ' +
-                appeal.res_last_name,
-            {
-                align: 'left',
-            }
-        );
+        .text(' i)    Name(s) of respondent : ' + appeal.res_fullname, {
+            align: 'left',
+        });
     pdfDoc
         .fontSize(11)
         .text(

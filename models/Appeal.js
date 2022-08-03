@@ -12,12 +12,7 @@ const Appeal = sequelize.define(
             primaryKey: true,
         },
 
-        first_name: {
-            type: Sequelize.STRING,
-            allowNull: false,
-        },
-
-        last_name: {
+        fullname: {
             type: Sequelize.STRING,
             allowNull: false,
         },
@@ -94,12 +89,7 @@ const Appeal = sequelize.define(
             type: Sequelize.STRING,
             allowNull: false,
         },
-        res_first_name: {
-            type: Sequelize.STRING,
-            allowNull: false,
-        },
-
-        res_last_name: {
+        res_fullname: {
             type: Sequelize.STRING,
             allowNull: false,
         },
@@ -205,7 +195,6 @@ const Appeal = sequelize.define(
         },
         interim_order: {
             type: Sequelize.TEXT,
-            allowNull: false,
         },
         is_matter_pending: {
             type: Sequelize.BOOLEAN,

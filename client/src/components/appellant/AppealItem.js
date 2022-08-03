@@ -1,14 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const AppealItem = ({
-    appeal: { id, first_name, last_name, res_first_name, res_last_name },
-}) => {
+const AppealItem = ({ appeal: { id, fullname, res_fullname } }) => {
     return (
         <tr>
             <td>{id}</td>
-            <td>{`${first_name} ${last_name}`}</td>
-            <td>{`${res_first_name} ${res_last_name}`}</td>
+            <td>{`${fullname} `}</td>
+            <td>{`${res_fullname} `}</td>
             <td>
                 <Link
                     to={`/appellant/appeals/${id}`}

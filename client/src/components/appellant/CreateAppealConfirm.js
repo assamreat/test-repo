@@ -21,7 +21,7 @@ const CreateAppealConfirm = ({ prevStep, values, onSubmit }) => {
                                         <strong>Name of the Appellant</strong>
                                     </div>
                                     <div className="col-sm-6 text-right">
-                                        <strong>{` ${values.first_name} ${values.last_name} `}</strong>
+                                        <strong>{` ${values.fullname}`}</strong>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@ const CreateAppealConfirm = ({ prevStep, values, onSubmit }) => {
                                                 </strong>
                                             </div>
                                             <div className="col-sm-6 text-right">
-                                                <strong>{` ${values.res_first_name} ${values.res_last_name} `}</strong>
+                                                <strong>{` ${values.res_fullname} `}</strong>
                                             </div>
                                         </div>
                                     </div>

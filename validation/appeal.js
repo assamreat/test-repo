@@ -1,8 +1,9 @@
 const { body } = require('express-validator');
 
 module.exports = [
-    body('first_name', 'Please enter a first name').isLength({ min: 1 }),
-    body('last_name', 'Please enter a last name').isLength({ min: 1 }),
+    body('fullname', 'Please enter a name of the appellant').isLength({
+        min: 1,
+    }),
     body('ar_line1', 'Please include an address Line 1').isLength({
         min: 1,
     }),
@@ -52,10 +53,7 @@ module.exports = [
     body('appellant_email_id', 'Please include a valid email').isLength({
         min: 1,
     }),
-    body('res_first_name', 'Please include first name').isLength({
-        min: 1,
-    }),
-    body('res_last_name', 'Please include last name').isLength({
+    body('res_fullname', 'Please include name of the respondent').isLength({
         min: 1,
     }),
     body('res_ao_line1', 'Please include an address Line 1').isLength({

@@ -34,12 +34,9 @@ const CreateAppealDetails = ({
         const email_regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
         const mobile_regex = /^([0|\+[0-9]{1,5})?([6-9][0-9]{9})$/;
 
-        if (!values.first_name) {
-            errors.first_name = 'ca_danger';
+        if (!values.fullname) {
             errors.fullname = 'Name can not be empty';
-        }
-        if (!values.last_name) {
-            errors.last_name = 'ca_danger';
+            errors.fullname_err = 'ca_danger';
         }
         if (!values.ar_line1) {
             errors.ar_line1 = 'ca_danger';
@@ -122,13 +119,11 @@ const CreateAppealDetails = ({
             errors.appellant_email_err = 'ca_danger';
         }
 
-        if (!values.res_first_name) {
-            errors.res_first_name = 'ca_danger';
+        if (!values.res_fullname) {
+            errors.res_fullname_err = 'ca_danger';
             errors.res_fullname = 'Respondent name can not be empty';
         }
-        if (!values.res_last_name) {
-            errors.res_last_name = 'ca_danger';
-        }
+
         if (!values.res_ao_line1) {
             errors.res_ao_line1 = 'ca_danger';
         }
@@ -230,8 +225,7 @@ const CreateAppealDetails = ({
     };
 
     const {
-        first_name,
-        last_name,
+        fullname,
         ar_line1,
         ar_line2,
         ar_landmark,
@@ -250,8 +244,7 @@ const CreateAppealDetails = ({
         as_country,
         appellant_mobile_no,
         appellant_email_id,
-        res_first_name,
-        res_last_name,
+        res_fullname,
         res_ao_line1,
         res_ao_line2,
         res_ao_landmark,
@@ -299,25 +292,15 @@ const CreateAppealDetails = ({
                                 : null}
                         </span>
                     </p>
-                    <div className="ca_div name-item">
-                        <input
-                            className={`ca_input ${formErrors.first_name}`}
-                            type="text"
-                            placeholder="First Name"
-                            name="first_name"
-                            value={first_name}
-                            onChange={(e) => onChange(e)}
-                        />
 
-                        <input
-                            className={`ca_input ${formErrors.last_name}`}
-                            type="text"
-                            placeholder="Last Name"
-                            name="last_name"
-                            value={last_name}
-                            onChange={(e) => onChange(e)}
-                        />
-                    </div>
+                    <input
+                        className={`ca_input ${formErrors.fullname_err}`}
+                        type="text"
+                        placeholder="Full Name of the Appellant"
+                        name="fullname"
+                        value={fullname}
+                        onChange={(e) => onChange(e)}
+                    />
                 </div>
                 <div className="ca_div item">
                     <p className="ca_p">
@@ -543,24 +526,15 @@ const CreateAppealDetails = ({
                                 : null}
                         </span>
                     </p>
-                    <div className="ca_div name-item">
-                        <input
-                            className={`ca_input ${formErrors.res_first_name}`}
-                            type="text"
-                            placeholder="First Name"
-                            name="res_first_name"
-                            value={res_first_name}
-                            onChange={(e) => onChange(e)}
-                        />
-                        <input
-                            className={`ca_input ${formErrors.res_last_name}`}
-                            type="text"
-                            placeholder="Last Name"
-                            name="res_last_name"
-                            value={res_last_name}
-                            onChange={(e) => onChange(e)}
-                        />
-                    </div>
+
+                    <input
+                        className={`ca_input ${formErrors.res_fullname_err}`}
+                        type="text"
+                        placeholder="Full Name of the Respondent"
+                        name="res_fullname"
+                        value={res_fullname}
+                        onChange={(e) => onChange(e)}
+                    />
                 </div>
                 <div className="ca_div item">
                     <p className="ca_p">
