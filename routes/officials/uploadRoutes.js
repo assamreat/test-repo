@@ -8,6 +8,9 @@ const isReceptionist = require('../../middleware/isReceptionist');
 // Model
 const AppealDoc = require('../../models/AppealDoc');
 
+// file helper util
+const fileHelper = require('../../util/file');
+
 // @route POST api/upload/:id
 // @desc  Upload files for an appeal
 // @access Private
@@ -35,6 +38,8 @@ router.post('/:id', auth, isReceptionist, async (req, res) => {
                     where: { appealId: req.params.id },
                 }
             );
+
+            fileHelper.deleteFile(existingDoc.docURL);
 
             return res.json({ docURL: docURL });
         }
