@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { validationResult } = require('express-validator');
 const validateInputAppeal = require('../../validation/appeal');
-const appealPdf = require('./appealPdf');
+const appealPdf = require('../../documents/appealPdf');
 
 const fs = require('fs');
 const path = require('path');
