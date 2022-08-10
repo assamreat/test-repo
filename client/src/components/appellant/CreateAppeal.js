@@ -1,8 +1,8 @@
-import React, { useState, Fragment } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createAppeal } from '../../actions/appeal';
-import Header from '../frontend/Header';
+
 import CreateAppealDetails from './CreateAppealDetails';
 import CreateAppealConfirm from './CreateAppealConfirm';
 import './CreateAppeal.css';
