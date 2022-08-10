@@ -10,8 +10,7 @@ import './CreateAppeal.css';
 const FormC = ({ createAppeal, history }) => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
+        fullname: '',
         ar_line1: '',
         ar_line2: '',
         ar_landmark: '',
@@ -30,8 +29,7 @@ const FormC = ({ createAppeal, history }) => {
         as_country: '',
         appellant_mobile_no: '',
         appellant_email_id: '',
-        res_first_name: '',
-        res_last_name: '',
+        res_fullname: '',
         res_ao_line1: '',
         res_ao_line2: '',
         res_ao_landmark: '',
