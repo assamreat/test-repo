@@ -36,7 +36,7 @@ const AppealShow = ({ appellantGetAppeal, match, appeal: { appeal } }) => {
                             );
                         }}
                     >
-                        <i class="fa-solid fa-download"></i> Download PDF
+                        <i className="fa-solid fa-download"></i> Download PDF
                     </button>
                 </div>
                 <div className="card-body">
