@@ -738,7 +738,17 @@ const Checklist = ({
                                     name="isDelayOnSubmission"
                                     value={isDelayOnSubmission}
                                     checked={isDelayOnSubmission}
-                                    onChange={(e) => handleCheck(e)}
+                                    onChange={(e) => {
+                                        handleCheck(e);
+                                        if (isDelayOnSubmission) {
+                                            setFormData({
+                                                ...formData,
+                                                isDelayOnSubmission:
+                                                    e.target.checked,
+                                                amountOfDelayOnSubmission: '',
+                                            });
+                                        }
+                                    }}
                                 />
                             </div>
 
@@ -799,7 +809,17 @@ const Checklist = ({
                                     name="isDelayInFiling"
                                     value={isDelayInFiling}
                                     checked={isDelayInFiling}
-                                    onChange={(e) => handleCheck(e)}
+                                    onChange={(e) => {
+                                        handleCheck(e);
+                                        if (isDelayInFiling) {
+                                            setFormData({
+                                                ...formData,
+                                                isDelayInFiling:
+                                                    e.target.checked,
+                                                amountOfDelayInFiling: '',
+                                            });
+                                        }
+                                    }}
                                 />
                             </div>
 
@@ -844,7 +864,17 @@ const Checklist = ({
                                     name="isCondonationOfDelayFiled"
                                     value={isCondonationOfDelayFiled}
                                     checked={isCondonationOfDelayFiled}
-                                    onChange={(e) => handleCheck(e)}
+                                    onChange={(e) => {
+                                        handleCheck(e);
+                                        if (!isCondonationOfDelayFiled) {
+                                            setFormData({
+                                                ...formData,
+                                                isCondonationOfDelayFiled:
+                                                    e.target.checked,
+                                                objectionForCondonation: '',
+                                            });
+                                        }
+                                    }}
                                 />
                             </div>
 
@@ -970,7 +1000,17 @@ const Checklist = ({
                                     name="isPaginationCorrect"
                                     value={isPaginationCorrect}
                                     checked={isPaginationCorrect}
-                                    onChange={(e) => handleCheck(e)}
+                                    onChange={(e) => {
+                                        handleCheck(e);
+                                        if (isPaginationCorrect) {
+                                            setFormData({
+                                                ...formData,
+                                                isPaginationCorrect:
+                                                    e.target.checked,
+                                                legibleDocs: '',
+                                            });
+                                        }
+                                    }}
                                 />
                             </div>
 
