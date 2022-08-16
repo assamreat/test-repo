@@ -1,196 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { createChecklist, getChecklist } from '../../../actions/checklist';
+import React from 'react';
 
-const Checklist = ({
-    createChecklist,
-    getChecklist,
-    match,
-    history,
-    checklist: { checklist, loading },
+const ChecklistForm = ({
+    formData,
+    onChange,
+    handleCheck,
+    onSubmit,
+    formError,
+    setFormData,
 }) => {
-    const [formData, setFormData] = useState({
-        appealNum: '',
-        complaintNum: '',
-        appellant: '',
-        respondent: '',
-        sectionNum: '',
-        isAppealCompetent: false,
-        isNameAddressCorrect: false,
-        isOrdercopyAttached: false,
-        dateOfOrder: '',
-        dateOfCommunication: '',
-        dateOfApplication: '',
-        dateOnCopyReady: '',
-        dateOfReceipt: '',
-        dateOfFiling: '',
-        dateOfSubmissionHardcopy: '',
-        isDelayOnSubmission: '',
-        amountOfDelayOnSubmission: '',
-        isAppealFiledWithinLimitation: false,
-        isDelayInFiling: false,
-        amountOfDelayInFiling: '',
-        isCondonationOfDelayFiled: false,
-        objectionForCondonation: '',
-        isFeesPaid: false,
-        dateOfPayment: '',
-        copyOfReceipt: '',
-        isPaginationCorrect: '',
-        legibleDocs: '',
-        isAppealMemoAnnexed: false,
-        isServedByPost: false,
-        isAuthStamped: false,
-        isEmailPhoneOnRecord: false,
-    });
-
-    useEffect(() => {
-        const { id } = match.params;
-        getChecklist(id);
-
-        setFormData({
-            appealNum:
-                loading || !checklist.appeal_num ? '' : checklist.appeal_num,
-            complaintNum:
-                loading || !checklist.complaint_num
-                    ? ''
-                    : checklist.complaint_num,
-            appellant:
-                loading || !checklist.appellant ? '' : checklist.appellant,
-
-            respondent:
-                loading || !checklist.respondent ? '' : checklist.respondent,
-
-            sectionNum:
-                loading || !checklist.section_num ? '' : checklist.section_num,
-
-            isAppealCompetent:
-                loading || !checklist.is_appeal_competent
-                    ? false
-                    : checklist.is_appeal_competent,
-
-            isNameAddressCorrect:
-                loading || !checklist.is_name_address_correct
-                    ? false
-                    : checklist.is_name_address_correct,
-
-            isOrdercopyAttached:
-                loading || !checklist.is_ordercopy_attached
-                    ? false
-                    : checklist.is_ordercopy_attached,
-
-            dateOfOrder:
-                loading || !checklist.date_of_order
-                    ? ''
-                    : checklist.date_of_order,
-
-            dateOfCommunication:
-                loading || !checklist.date_of_communication
-                    ? ''
-                    : checklist.date_of_communication,
-
-            dateOfApplication:
-                loading || !checklist.date_of_application
-                    ? ''
-                    : checklist.date_of_application,
-
-            dateOnCopyReady:
-                loading || !checklist.date_on_copy_ready
-                    ? ''
-                    : checklist.date_on_copy_ready,
-
-            dateOfReceipt:
-                loading || !checklist.date_of_receipt
-                    ? ''
-                    : checklist.date_of_receipt,
-
-            dateOfFiling:
-                loading || !checklist.date_of_filing
-                    ? ''
-                    : checklist.date_of_filing,
-
-            dateOfSubmissionHardcopy:
-                loading || !checklist.date_of_submission_hardcopy
-                    ? ''
-                    : checklist.date_of_submission_hardcopy,
-
-            isDelayOnSubmission:
-                loading || !checklist.is_delay_on_submission
-                    ? false
-                    : checklist.is_delay_on_submission,
-
-            amountOfDelayOnSubmission:
-                loading || !checklist.amount_of_delay_on_submission
-                    ? ''
-                    : checklist.amount_of_delay_on_submission,
-
-            isAppealFiledWithinLimitation:
-                loading || !checklist.is_appeal_filed_within_limitation
-                    ? false
-                    : checklist.is_appeal_filed_within_limitation,
-
-            isDelayInFiling:
-                loading || !checklist.is_delay_in_filing
-                    ? false
-                    : checklist.is_delay_in_filing,
-
-            amountOfDelayInFiling:
-                loading || !checklist.amount_of_delay_in_filing
-                    ? ''
-                    : checklist.amount_of_delay_in_filing,
-
-            isCondonationOfDelayFiled:
-                loading || !checklist.is_condonation_of_delay_filed
-                    ? false
-                    : checklist.is_condonation_of_delay_filed,
-
-            objectionForCondonation:
-                loading || !checklist.objection_for_condonation
-                    ? ''
-                    : checklist.objection_for_condonation,
-
-            isFeesPaid:
-                loading || !checklist.is_fees_paid
-                    ? false
-                    : checklist.is_fees_paid,
-
-            dateOfPayment:
-                loading || !checklist.date_of_payment
-                    ? ''
-                    : checklist.date_of_payment,
-
-            isPaginationCorrect:
-                loading || !checklist.is_pagination_correct
-                    ? false
-                    : checklist.is_pagination_correct,
-
-            legibleDocs:
-                loading || !checklist.legible_docs
-                    ? ''
-                    : checklist.legible_docs,
-
-            isAppealMemoAnnexed:
-                loading || !checklist.is_appeal_memo_annexed
-                    ? false
-                    : checklist.is_appeal_memo_annexed,
-
-            isServedByPost:
-                loading || !checklist.is_served_by_post
-                    ? false
-                    : checklist.is_served_by_post,
-
-            isAuthStamped:
-                loading || !checklist.is_auth_stamped
-                    ? false
-                    : checklist.is_auth_stamped,
-
-            isEmailPhoneOnRecord:
-                loading || !checklist.is_email_phone_on_record
-                    ? false
-                    : checklist.is_email_phone_on_record,
-        });
-    }, [loading]);
-
     const {
         appealNum,
         complaintNum,
@@ -225,114 +42,6 @@ const Checklist = ({
         isEmailPhoneOnRecord,
     } = formData;
 
-    const [formError, setFormError] = useState({});
-
-    const validate = (values) => {
-        const errors = {};
-
-        if (!values.appealNum) {
-            errors.appealNum = 'Appeal No. can not be empty';
-        }
-
-        if (!values.complaintNum) {
-            errors.complaintNum = 'Complaint No. can not be empty';
-        }
-        if (!values.appellant) {
-            errors.appellant = 'Appellants field can not be empty';
-        }
-        if (!values.respondent) {
-            errors.respondent = 'Respondent field can not be empty';
-        }
-
-        if (!values.sectionNum) {
-            errors.sectionNum = 'Section number can not be empty';
-        }
-        if (!values.dateOfOrder) {
-            errors.dateOfOrder = 'Date of order can not be empty';
-        }
-        if (!values.dateOfCommunication) {
-            errors.dateOfCommunication =
-                'Date of communication can not be empty';
-        }
-        if (!values.dateOfApplication) {
-            errors.dateOfApplication = 'Date of application can not be empty';
-        }
-        if (!values.dateOnCopyReady) {
-            errors.dateOnCopyReady =
-                'Date on which the copy was ready field can not be empty';
-        }
-        if (!values.dateOfReceipt) {
-            errors.dateOfReceipt = 'Date of receipt can not be empty';
-        }
-        if (!values.dateOfFiling) {
-            errors.dateOfFiling = 'Date of online filling can not be empty';
-        }
-        if (!values.dateOfSubmissionHardcopy) {
-            errors.dateOfSubmissionHardcopy =
-                'Date of submission of hard copy can not be empty';
-        }
-
-        if (values.isDelayOnSubmission && !values.amountOfDelayOnSubmission) {
-            errors.amountOfDelayOnSubmission = 'This Field can not be empty';
-        }
-
-        if (values.isDelayInFiling && !values.amountOfDelayInFiling) {
-            errors.amountOfDelayInFiling = 'This Field can not be empty';
-        }
-
-        if (
-            !values.isCondonationOfDelayFiled &&
-            !values.objectionForCondonation
-        ) {
-            errors.objectionForCondonation = 'This Field can not be empty';
-        }
-
-        if (values.isFeesPaid && !values.dateOfPayment) {
-            errors.dateOfPayment = 'This Field can not be empty';
-        }
-
-        if (values.isPaginationCorrect && !values.legibleDocs) {
-            errors.legibleDocs = 'This Field can not be empty';
-        }
-
-        return errors;
-    };
-
-    const onChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleCheck = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.checked });
-    };
-    const onSubmit = (e) => {
-        e.preventDefault();
-        // const { id } = match.params;
-        // createChecklist(formData, id, history);
-
-        setFormError(validate(formData));
-
-        const err = Object.keys(validate(formData));
-
-        if (err.length) {
-            let input =
-                document.querySelector(`input[name=${err[0]}]`) ||
-                document.querySelector(`select[name=${err[0]}]`) ||
-                document.querySelector(`textarea[name=${err[0]}]`);
-
-            input.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-                inline: 'start',
-            });
-        }
-
-        if (Object.keys(validate(formData)).length === 0) {
-            const { id } = match.params;
-            createChecklist(formData, id, history);
-        }
-    };
-
     return (
         <div className="container-fluid">
             <h1 className="h3 mb-2 text-gray-800">Checklist - FORM A</h1>
@@ -344,7 +53,7 @@ const Checklist = ({
                         <div className="col-12">
                             <h4>
                                 <label htmlFor="FORM A">
-                                    <b>FORM A - Update</b>
+                                    <b>FORM A</b>
                                 </label>
                             </h4>
                         </div>
@@ -1084,7 +793,7 @@ const Checklist = ({
                                     <span className="icon text-white-50">
                                         <i className="fas fa-check"></i>
                                     </span>
-                                    <span className="text">Update Form A</span>
+                                    <span className="text">Submit Form A</span>
                                 </button>
                                 <div className="my-2"></div>
                             </div>
@@ -1096,10 +805,4 @@ const Checklist = ({
     );
 };
 
-const mapStateToProps = (state) => {
-    return { checklist: state.checklist };
-};
-
-export default connect(mapStateToProps, { createChecklist, getChecklist })(
-    withRouter(Checklist)
-);
+export default ChecklistForm;
