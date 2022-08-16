@@ -15,13 +15,11 @@ const Checklist = sequelize.define(
         appeal_num: {
             type: Sequelize.STRING,
             allowNull: false,
-            unique: true,
         },
 
         complaint_num: {
             type: Sequelize.STRING,
             allowNull: false,
-            unique: true,
         },
 
         appellant: {
