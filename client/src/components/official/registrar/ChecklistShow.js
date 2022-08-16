@@ -374,7 +374,11 @@ const ChecklistShow = ({ checklist }) => {
                             </div>
 
                             <div className="col-md-6">
-                                <h6>{checklist.date_of_payment}</h6>
+                                <h6>
+                                    {checklist.date_of_payment === '1970-01-01'
+                                        ? ''
+                                        : checklist.date_of_payment}
+                                </h6>
                             </div>
 
                             <div className="col-md-6">
@@ -490,7 +494,7 @@ const ChecklistShow = ({ checklist }) => {
 
                             <div className="col-12">
                                 <Link
-                                    to={`/official/registrar/appeals/${checklist.id}/checklist/edit`}
+                                    to={`/official/registrar/appeals/${checklist.appealId}/checklist/edit`}
                                     className="btn btn-primary btn-icon-split"
                                 >
                                     <span className="icon text-white-50">
