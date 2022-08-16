@@ -1,13 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import axios from 'axios';
+const fileDownload = require('js-file-download');
+
 const ChecklistShow = ({ checklist }) => {
     return (
         <div className="container-fluid">
             <h1 className="h3 mb-2 text-gray-800">Checklist - FORM A</h1>
             <p className="mb-4">Checklist for Scrutiny of Appeal</p>
             <div className="card shadow mb-4">
-                <div className="card-header py-3"></div>
+                <div className="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 className="m-0 font-weight-bold ">CHECKLIST</h6>
+                    <button
+                        className="btn btn-sm btn-primary fw-bold"
+                        onClick={async () => {
+                            const res = await axios.get(
+                                `/api/registrar/checklist/${checklist.id}/print`,
+                                {
+                                    responseType: 'blob',
+                                }
+                            );
+
+                            fileDownload(
+                                res.data,
+                                'checklist-' + checklist.id + '.pdf'
+                            );
+                        }}
+                    >
+                        <i className="fa-solid fa-download"></i> Download PDF
+                    </button>
+                </div>
                 <div className="card-body">
                     <div className="row g-3">
                         <div className="col-12">

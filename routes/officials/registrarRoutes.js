@@ -3,6 +3,15 @@ const router = express.Router();
 const { validationResult } = require('express-validator');
 const validateChecklistInput = require('../../validation/checklist');
 
+// checklist pdf setup
+const checklistPdf = require('../../documents/checklistPdf');
+
+const fs = require('fs');
+const path = require('path');
+
+// PdfKit
+const PDFDocument = require('pdfkit');
+
 // Middlewares
 const auth = require('../../middleware/auth');
 const isRegistrar = require('../../middleware/isRegistrar');
@@ -393,5 +402,54 @@ router.get('/bench', auth, isRegistrar, async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+// @route POST api/registrar/checklist/:checklistId/print
+// @desc  Download filled form A for an appeal
+// @access Private
+router.get(
+    '/checklist/:checklistId/print',
+    auth,
+    isRegistrar,
+    async (req, res) => {
+        try {
+            const checklist = await Checklist.findOne({
+                where: {
+                    id: req.params.checklistId,
+                },
+            });
+
+            if (!checklist) {
+                return next(new Error('No checklist found'));
+            }
+
+            // if (appeal.appellantId.toString() !== req.user.id.toString()) {
+            //     return next(new Error('Unauthorized'));
+            // }
+
+            const checklistName = 'checklist-' + checklist.id + '.pdf';
+            const checklistPath = path.join(
+                'data',
+                'checklists',
+                checklistName
+            );
+
+            const pdfDoc = new PDFDocument();
+            res.setHeader('Content-Type', 'application/pdf');
+            res.setHeader(
+                'Content-Disposition',
+                'attachment; fileName="' + checklistName + '"'
+            );
+            pdfDoc.pipe(fs.createWriteStream(checklistPath));
+            pdfDoc.pipe(res);
+
+            // Design of the pdf document
+            checklistPdf(pdfDoc, checklist);
+            pdfDoc.end();
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).send('Server Error');
+        }
+    }
+);
 
 module.exports = router;
