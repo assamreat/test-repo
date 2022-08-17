@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const Sidebar = () => {
+import { logout } from '../../../actions/auth';
+
+const Sidebar = ({ logout }) => {
     return (
         <ul
             className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
@@ -172,27 +174,25 @@ const Sidebar = () => {
                 ></button>
             </div>
 
-            {/* <div className="sidebar-card d-none d-lg-flex">
-                <img
+            <div className="sidebar-card d-none d-lg-flex">
+                {/* <img
                     className="sidebar-card-illustration mb-2"
                     src={
                         require('../../assets/official/img/undraw_rocket.svg')
                             .default
                     }
                     alt="..."
-                />
+                /> */}
                 <p className="text-center mb-2">
-                    <strong>Admin Panel-</strong> React Admin UI Project
+                    <strong>Admin Panel-</strong> Assam Real Estate Appellate
+                    Tribunal
                 </p>
-                <Link
-                    className="btn btn-success btn-sm"
-                    to="https://startbootstrap.com/theme/sb-admin-pro"
-                >
-                    Upgrade to Pro!
-                </Link>
-            </div> */}
+                <button className="btn btn-success btn-sm" onClick={logout}>
+                    Logout
+                </button>
+            </div>
         </ul>
     );
 };
 
-export default connect(null)(Sidebar);
+export default connect(null, { logout })(Sidebar);
