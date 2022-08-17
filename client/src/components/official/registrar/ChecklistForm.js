@@ -505,7 +505,7 @@ const ChecklistForm = ({
 
                             <div className="col-md-6">
                                 <label className="form-label">
-                                    7. Where there is any delay in filing of
+                                    7. Whether there is any delay in filing of
                                     appeal
                                 </label>
                             </div>
