@@ -66,18 +66,18 @@ const Checklist = ({
 
             isAppealCompetent:
                 loading || !checklist.is_appeal_competent
-                    ? false
-                    : checklist.is_appeal_competent,
+                    ? '0'
+                    : String(Number(checklist.is_appeal_competent)),
 
             isNameAddressCorrect:
                 loading || !checklist.is_name_address_correct
-                    ? false
-                    : checklist.is_name_address_correct,
+                    ? '0'
+                    : String(Number(checklist.is_name_address_correct)),
 
             isOrdercopyAttached:
                 loading || !checklist.is_ordercopy_attached
-                    ? false
-                    : checklist.is_ordercopy_attached,
+                    ? '0'
+                    : String(Number(checklist.is_ordercopy_attached)),
 
             dateOfOrder:
                 loading || !checklist.date_of_order
@@ -116,8 +116,8 @@ const Checklist = ({
 
             isDelayOnSubmission:
                 loading || !checklist.is_delay_on_submission
-                    ? false
-                    : checklist.is_delay_on_submission,
+                    ? '0'
+                    : String(Number(checklist.is_delay_on_submission)),
 
             amountOfDelayOnSubmission:
                 loading || !checklist.amount_of_delay_on_submission
@@ -126,13 +126,15 @@ const Checklist = ({
 
             isAppealFiledWithinLimitation:
                 loading || !checklist.is_appeal_filed_within_limitation
-                    ? false
-                    : checklist.is_appeal_filed_within_limitation,
+                    ? '0'
+                    : String(
+                          Number(checklist.is_appeal_filed_within_limitation)
+                      ),
 
             isDelayInFiling:
                 loading || !checklist.is_delay_in_filing
-                    ? false
-                    : checklist.is_delay_in_filing,
+                    ? '0'
+                    : String(Number(checklist.is_delay_in_filing)),
 
             amountOfDelayInFiling:
                 loading || !checklist.amount_of_delay_in_filing
@@ -141,8 +143,8 @@ const Checklist = ({
 
             isCondonationOfDelayFiled:
                 loading || !checklist.is_condonation_of_delay_filed
-                    ? false
-                    : checklist.is_condonation_of_delay_filed,
+                    ? '0'
+                    : String(Number(checklist.is_condonation_of_delay_filed)),
 
             objectionForCondonation:
                 loading || !checklist.objection_for_condonation
@@ -151,8 +153,8 @@ const Checklist = ({
 
             isFeesPaid:
                 loading || !checklist.is_fees_paid
-                    ? false
-                    : checklist.is_fees_paid,
+                    ? '0'
+                    : String(Number(checklist.is_fees_paid)),
 
             dateOfPayment:
                 loading || !checklist.date_of_payment
@@ -161,8 +163,8 @@ const Checklist = ({
 
             isPaginationCorrect:
                 loading || !checklist.is_pagination_correct
-                    ? false
-                    : checklist.is_pagination_correct,
+                    ? '0'
+                    : String(Number(checklist.is_pagination_correct)),
 
             legibleDocs:
                 loading || !checklist.legible_docs
@@ -171,23 +173,23 @@ const Checklist = ({
 
             isAppealMemoAnnexed:
                 loading || !checklist.is_appeal_memo_annexed
-                    ? false
-                    : checklist.is_appeal_memo_annexed,
+                    ? '0'
+                    : String(Number(checklist.is_appeal_memo_annexed)),
 
             isServedByPost:
                 loading || !checklist.is_served_by_post
-                    ? false
-                    : checklist.is_served_by_post,
+                    ? '0'
+                    : String(Number(checklist.is_served_by_post)),
 
             isAuthStamped:
                 loading || !checklist.is_auth_stamped
-                    ? false
-                    : checklist.is_auth_stamped,
+                    ? '0'
+                    : String(Number(checklist.is_auth_stamped)),
 
             isEmailPhoneOnRecord:
                 loading || !checklist.is_email_phone_on_record
-                    ? false
-                    : checklist.is_email_phone_on_record,
+                    ? '0'
+                    : String(Number(checklist.is_email_phone_on_record)),
         });
     }, [loading]);
 
@@ -247,9 +249,23 @@ const Checklist = ({
         if (!values.sectionNum) {
             errors.sectionNum = 'Section number can not be empty';
         }
+
+        if (!values.isAppealCompetent) {
+            errors.isAppealCompetent = 'Please select a response';
+        }
+
+        if (!values.isNameAddressCorrect) {
+            errors.isNameAddressCorrect = 'Please select a response';
+        }
+
+        if (!values.isOrdercopyAttached) {
+            errors.isOrdercopyAttached = 'Please select a response';
+        }
+
         if (!values.dateOfOrder) {
             errors.dateOfOrder = 'Date of order can not be empty';
         }
+
         if (!values.dateOfCommunication) {
             errors.dateOfCommunication =
                 'Date of communication can not be empty';
@@ -272,27 +288,73 @@ const Checklist = ({
                 'Date of submission of hard copy can not be empty';
         }
 
-        if (values.isDelayOnSubmission && !values.amountOfDelayOnSubmission) {
-            errors.amountOfDelayOnSubmission = 'This Field can not be empty';
-        }
-
-        if (values.isDelayInFiling && !values.amountOfDelayInFiling) {
-            errors.amountOfDelayInFiling = 'This Field can not be empty';
+        if (!values.isDelayOnSubmission) {
+            errors.isDelayOnSubmission = 'Please select a response';
         }
 
         if (
-            !values.isCondonationOfDelayFiled &&
+            values.isDelayOnSubmission === '1' &&
+            !values.amountOfDelayOnSubmission
+        ) {
+            errors.amountOfDelayOnSubmission = 'This Field can not be empty';
+        }
+
+        if (!values.isAppealFiledWithinLimitation) {
+            errors.isAppealFiledWithinLimitation = 'Please select a response';
+        }
+
+        if (!values.isDelayInFiling) {
+            errors.isDelayInFiling = 'Please select a response';
+        }
+
+        if (values.isDelayInFiling === '1' && !values.amountOfDelayInFiling) {
+            errors.amountOfDelayInFiling = 'This Field can not be empty';
+        }
+
+        if (!values.isCondonationOfDelayFiled) {
+            errors.isCondonationOfDelayFiled = 'Please select a response';
+        }
+
+        if (
+            values.isCondonationOfDelayFiled === '0' &&
             !values.objectionForCondonation
         ) {
             errors.objectionForCondonation = 'This Field can not be empty';
         }
 
-        if (values.isFeesPaid && !values.dateOfPayment) {
+        if (!values.isFeesPaid) {
+            errors.isFeesPaid = 'Please select a response';
+        }
+
+        if (
+            values.isFeesPaid === '1' &&
+            values.dateOfPayment - new Date(0) === 0
+        ) {
             errors.dateOfPayment = 'This Field can not be empty';
         }
 
-        if (values.isPaginationCorrect && !values.legibleDocs) {
+        if (!values.isPaginationCorrect) {
+            errors.isPaginationCorrect = 'Please select a response';
+        }
+
+        if (values.isPaginationCorrect === '1' && !values.legibleDocs) {
             errors.legibleDocs = 'This Field can not be empty';
+        }
+
+        if (!values.isAppealMemoAnnexed) {
+            errors.isAppealMemoAnnexed = 'Please select a response';
+        }
+
+        if (!values.isServedByPost) {
+            errors.isServedByPost = 'Please select a response';
+        }
+
+        if (!values.isAuthStamped) {
+            errors.isAuthStamped = 'Please select a response';
+        }
+
+        if (!values.isEmailPhoneOnRecord) {
+            errors.isEmailPhoneOnRecord = 'Please select a response';
         }
 
         return errors;
@@ -302,13 +364,11 @@ const Checklist = ({
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleCheck = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.checked });
-    };
+    // const handleCheck = (e) => {
+    //     setFormData({ ...formData, [e.target.name]: e.target.checked });
+    // };
     const onSubmit = (e) => {
         e.preventDefault();
-        // const { id } = match.params;
-        // createChecklist(formData, id, history);
 
         setFormError(validate(formData));
 
@@ -355,11 +415,6 @@ const Checklist = ({
                                     <b>CHECKLIST FOR SCRUTINY APPEAL</b>
                                 </label>
                             </h4>
-
-                            <p style={{ color: '#d88' }}>
-                                (* Check the checkboxes for Yes and leave it
-                                unchecked for No)
-                            </p>
                         </div>
 
                         <form className="row g-4" onSubmit={(e) => onSubmit(e)}>
@@ -483,19 +538,45 @@ const Checklist = ({
                                     htmlFor="isAppealCompetent"
                                 >
                                     2. Whether the appeal is competent
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isAppealCompetent}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isAppealCompetent"
+                                    type="radio"
                                     name="isAppealCompetent"
-                                    value={isAppealCompetent}
-                                    checked={isAppealCompetent}
-                                    onChange={(e) => handleCheck(e)}
+                                    value="1"
+                                    id="isAppealCompetent1"
+                                    checked={isAppealCompetent === '1'}
+                                    onChange={(e) => onChange(e)}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isAppealCompetent1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isAppealCompetent"
+                                    value="0"
+                                    id="isAppealCompetent0"
+                                    checked={isAppealCompetent === '0'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isAppealCompetent0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-md-6">
@@ -503,38 +584,90 @@ const Checklist = ({
                                     3. Whether the name of the parties and their
                                     addresses are properly mentioned in the
                                     Appeal Memo
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isNameAddressCorrect}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isNameAddressCorrect"
+                                    type="radio"
                                     name="isNameAddressCorrect"
-                                    value={isNameAddressCorrect}
-                                    checked={isNameAddressCorrect}
-                                    onChange={(e) => handleCheck(e)}
+                                    value="1"
+                                    id="isNameAddressCorrect1"
+                                    checked={isNameAddressCorrect === '1'}
+                                    onChange={(e) => onChange(e)}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isNameAddressCorrect1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isNameAddressCorrect"
+                                    value="0"
+                                    id="isNameAddressCorrect0"
+                                    checked={isNameAddressCorrect === '0'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isNameAddressCorrect0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-md-6">
                                 <label className="form-label">
                                     4. Whether the copy of impugned
                                     order/Judgement is filed with the appeal
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isOrdercopyAttached}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isOrdercopyAttached"
+                                    type="radio"
                                     name="isOrdercopyAttached"
-                                    value={isOrdercopyAttached}
-                                    checked={isOrdercopyAttached}
-                                    onChange={(e) => handleCheck(e)}
+                                    value="1"
+                                    id="isOrdercopyAttached1"
+                                    checked={isOrdercopyAttached === '1'}
+                                    onChange={(e) => onChange(e)}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isOrdercopyAttached1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isOrdercopyAttached"
+                                    value="0"
+                                    id="isOrdercopyAttached0"
+                                    checked={isOrdercopyAttached === '0'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isOrdercopyAttached0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-12">
@@ -727,29 +860,52 @@ const Checklist = ({
                                 <label className="form-label">
                                     h. Whether there is any delay in submission
                                     of hard copy of Appeal Memo:
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isDelayOnSubmission}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isDelayOnSubmission"
+                                    type="radio"
                                     name="isDelayOnSubmission"
-                                    value={isDelayOnSubmission}
-                                    checked={isDelayOnSubmission}
+                                    value="1"
+                                    id="isDelayOnSubmission1"
+                                    checked={isDelayOnSubmission === '1'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isDelayOnSubmission1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isDelayOnSubmission"
+                                    value="0"
+                                    id="isDelayOnSubmission0"
+                                    checked={isDelayOnSubmission === '0'}
                                     onChange={(e) => {
-                                        handleCheck(e);
-                                        if (isDelayOnSubmission) {
-                                            setFormData({
-                                                ...formData,
-                                                isDelayOnSubmission:
-                                                    e.target.checked,
-                                                amountOfDelayOnSubmission: '',
-                                            });
-                                        }
+                                        onChange(e);
+                                        setFormData({
+                                            ...formData,
+                                            isDelayOnSubmission: '0',
+                                            amountOfDelayOnSubmission: '',
+                                        });
                                     }}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isDelayOnSubmission0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -765,7 +921,12 @@ const Checklist = ({
                                     type="text"
                                     className="form-control"
                                     id="days"
-                                    disabled={!isDelayOnSubmission}
+                                    disabled={
+                                        isDelayOnSubmission === '0' ||
+                                        isDelayOnSubmission === ''
+                                            ? true
+                                            : false
+                                    }
                                     name="amountOfDelayOnSubmission"
                                     value={amountOfDelayOnSubmission}
                                     onChange={(e) => onChange(e)}
@@ -779,48 +940,104 @@ const Checklist = ({
                                 <label className="form-label">
                                     6. Is appeal filed within limitation(60)
                                     days (from the date of receipt of order)
+                                    <p className="invalid-feedback d-block">
+                                        {
+                                            formError.isAppealFiledWithinLimitation
+                                        }
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isAppealFiledWithinLimitation"
+                                    type="radio"
                                     name="isAppealFiledWithinLimitation"
-                                    value={isAppealFiledWithinLimitation}
-                                    checked={isAppealFiledWithinLimitation}
-                                    onChange={(e) => handleCheck(e)}
+                                    value="1"
+                                    id="isAppealFiledWithinLimitation1"
+                                    checked={
+                                        isAppealFiledWithinLimitation === '1'
+                                    }
+                                    onChange={(e) => onChange(e)}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isAppealFiledWithinLimitation1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isAppealFiledWithinLimitation"
+                                    value="0"
+                                    id="isAppealFiledWithinLimitation0"
+                                    checked={
+                                        isAppealFiledWithinLimitation === '0'
+                                    }
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isAppealFiledWithinLimitation0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-md-6">
                                 <label className="form-label">
                                     7. Whether there is any delay in filing of
                                     appeal
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isDelayInFiling}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isDelayInFiling"
+                                    type="radio"
                                     name="isDelayInFiling"
-                                    value={isDelayInFiling}
-                                    checked={isDelayInFiling}
+                                    value="1"
+                                    id="isDelayInFiling1"
+                                    checked={isDelayInFiling === '1'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isDelayInFiling1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isDelayInFiling"
+                                    value="0"
+                                    id="isDelayInFiling0"
+                                    checked={isDelayInFiling === '0'}
                                     onChange={(e) => {
-                                        handleCheck(e);
-                                        if (isDelayInFiling) {
-                                            setFormData({
-                                                ...formData,
-                                                isDelayInFiling:
-                                                    e.target.checked,
-                                                amountOfDelayInFiling: '',
-                                            });
-                                        }
+                                        onChange(e);
+                                        setFormData({
+                                            ...formData,
+                                            isDelayInFiling: '0',
+                                            amountOfDelayInFiling: '',
+                                        });
                                     }}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isDelayInFiling0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -839,7 +1056,12 @@ const Checklist = ({
                                     type="text"
                                     className="form-control"
                                     id="delayDays"
-                                    disabled={!isDelayInFiling}
+                                    disabled={
+                                        isDelayInFiling === '0' ||
+                                        isDelayInFiling === ''
+                                            ? true
+                                            : false
+                                    }
                                     name="amountOfDelayInFiling"
                                     value={amountOfDelayInFiling}
                                     onChange={(e) => onChange(e)}
@@ -853,29 +1075,53 @@ const Checklist = ({
                                 <label className="form-label">
                                     8. Whether application for condonation of
                                     delay is filed with appeal
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isCondonationOfDelayFiled}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isCondonationOfDelayFiled"
+                                    type="radio"
                                     name="isCondonationOfDelayFiled"
-                                    value={isCondonationOfDelayFiled}
-                                    checked={isCondonationOfDelayFiled}
+                                    value="1"
+                                    id="isCondonationOfDelayFiled1"
+                                    checked={isCondonationOfDelayFiled === '1'}
                                     onChange={(e) => {
-                                        handleCheck(e);
-                                        if (!isCondonationOfDelayFiled) {
-                                            setFormData({
-                                                ...formData,
-                                                isCondonationOfDelayFiled:
-                                                    e.target.checked,
-                                                objectionForCondonation: '',
-                                            });
-                                        }
+                                        onChange(e);
+                                        setFormData({
+                                            ...formData,
+                                            isCondonationOfDelayFiled: '1',
+                                            objectionForCondonation: '',
+                                        });
                                     }}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isCondonationOfDelayFiled1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isCondonationOfDelayFiled"
+                                    value="0"
+                                    id="isCondonationOfDelayFiled0"
+                                    checked={isCondonationOfDelayFiled === '0'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isCondonationOfDelayFiled0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -894,7 +1140,12 @@ const Checklist = ({
                                     className="form-control"
                                     id="objection"
                                     rows="3"
-                                    disabled={isCondonationOfDelayFiled}
+                                    disabled={
+                                        isCondonationOfDelayFiled === '1' ||
+                                        isCondonationOfDelayFiled === ''
+                                            ? true
+                                            : false
+                                    }
                                     name="objectionForCondonation"
                                     value={objectionForCondonation}
                                     onChange={(e) => onChange(e)}
@@ -907,28 +1158,53 @@ const Checklist = ({
                             <div className="col-md-6">
                                 <label className="form-label">
                                     9. Whether requisite fees paid
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isFeesPaid}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isFeesPaid"
+                                    type="radio"
                                     name="isFeesPaid"
-                                    value={isFeesPaid}
-                                    checked={isFeesPaid}
+                                    value="1"
+                                    id="isFeesPaid1"
+                                    checked={isFeesPaid === '1'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isFeesPaid1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isFeesPaid"
+                                    value="0"
+                                    id="isFeesPaid0"
+                                    checked={isFeesPaid === '0'}
                                     onChange={(e) => {
-                                        handleCheck(e);
-                                        if (isFeesPaid) {
-                                            setFormData({
-                                                ...formData,
-                                                isFeesPaid: e.target.checked,
-                                                dateOfPayment: new Date(0),
-                                            });
-                                        }
+                                        onChange(e);
+                                        setFormData({
+                                            ...formData,
+                                            isFeesPaid: '0',
+                                            dateOfPayment: new Date(0),
+                                        });
                                     }}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isFeesPaid0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -947,7 +1223,11 @@ const Checklist = ({
                                     type="date"
                                     className="form-control"
                                     id="dateOfPayment"
-                                    disabled={!isFeesPaid}
+                                    disabled={
+                                        isFeesPaid === '0' || isFeesPaid === ''
+                                            ? true
+                                            : false
+                                    }
                                     name="dateOfPayment"
                                     value={dateOfPayment}
                                     onChange={(e) => onChange(e)}
@@ -957,61 +1237,57 @@ const Checklist = ({
                                 </p>
                             </div>
 
-                            {/* <div className="col-md-1"></div> */}
-
-                            {/* <div className="col-md-5">
-                                <label
-                                    htmlFor="copyOfReceipt"
-                                    className="form-label"
-                                >
-                                    copy of receipt
-                                </label>
-                            </div> */}
-
-                            {/* <div className="col-md-6">
-                                <div className="custom-file mb-3">
-                                    <input
-                                        type="file"
-                                        className="custom-file-input"
-                                        id="customFile"
-                                        // onChange={(e) => onFileChange(e)}
-                                    />
-                                    <label
-                                        className="custom-file-label"
-                                        htmlFor="customFile"
-                                    >
-                                        Choose File{filename}
-                                    </label>
-                                </div>
-                            </div> */}
-
                             <div className="col-md-6">
                                 <label className="form-label">
                                     10. Whether the required documents are
                                     filled with Index & Pagination
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isPaginationCorrect}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isPaginationCorrect"
+                                    type="radio"
                                     name="isPaginationCorrect"
-                                    value={isPaginationCorrect}
-                                    checked={isPaginationCorrect}
+                                    value="1"
+                                    id="isPaginationCorrect1"
+                                    checked={isPaginationCorrect === '1'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isPaginationCorrect1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isPaginationCorrect"
+                                    value="0"
+                                    id="isPaginationCorrect0"
+                                    checked={isPaginationCorrect === '0'}
                                     onChange={(e) => {
-                                        handleCheck(e);
-                                        if (isPaginationCorrect) {
-                                            setFormData({
-                                                ...formData,
-                                                isPaginationCorrect:
-                                                    e.target.checked,
-                                                legibleDocs: '',
-                                            });
-                                        }
+                                        onChange(e);
+                                        setFormData({
+                                            ...formData,
+                                            isPaginationCorrect: '0',
+                                            legibleDocs: '',
+                                        });
                                     }}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isPaginationCorrect0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -1027,7 +1303,12 @@ const Checklist = ({
                                     className="form-control"
                                     id="legible"
                                     rows="3"
-                                    disabled={!isPaginationCorrect}
+                                    disabled={
+                                        isPaginationCorrect === '0' ||
+                                        isPaginationCorrect === ''
+                                            ? true
+                                            : false
+                                    }
                                     name="legibleDocs"
                                     value={legibleDocs}
                                     onChange={(e) => onChange(e)}
@@ -1047,19 +1328,45 @@ const Checklist = ({
                                 <label className="form-label">
                                     i. Whether copy of Appeal Memo is annexed
                                     for giving the same to the other side
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isAppealMemoAnnexed}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isAppealMemoAnnexed"
+                                    type="radio"
                                     name="isAppealMemoAnnexed"
-                                    value={isAppealMemoAnnexed}
-                                    checked={isAppealMemoAnnexed}
-                                    onChange={(e) => handleCheck(e)}
+                                    value="1"
+                                    id="isAppealMemoAnnexed1"
+                                    checked={isAppealMemoAnnexed === '1'}
+                                    onChange={(e) => onChange(e)}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isAppealMemoAnnexed1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isAppealMemoAnnexed"
+                                    value="0"
+                                    id="isAppealMemoAnnexed0"
+                                    checked={isAppealMemoAnnexed === '0'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isAppealMemoAnnexed0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -1067,57 +1374,135 @@ const Checklist = ({
                             <div className="col-md-5">
                                 <label className="form-label">
                                     ii. Or served to other side by post/courier
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isServedByPost}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isServedByPost"
+                                    type="radio"
                                     name="isServedByPost"
-                                    value={isServedByPost}
-                                    checked={isServedByPost}
-                                    onChange={(e) => handleCheck(e)}
+                                    value="1"
+                                    id="isServedByPost1"
+                                    checked={isServedByPost === '1'}
+                                    onChange={(e) => onChange(e)}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isServedByPost1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isServedByPost"
+                                    value="0"
+                                    id="isServedByPost0"
+                                    checked={isServedByPost === '0'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isServedByPost0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-md-6">
                                 <label className="form-label">
                                     12. Whether Vakalatnama/ Authorization is
                                     filed and properly stamped
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isAuthStamped}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isAuthStamped"
+                                    type="radio"
                                     name="isAuthStamped"
-                                    value={isAuthStamped}
-                                    checked={isAuthStamped}
-                                    onChange={(e) => handleCheck(e)}
+                                    value="1"
+                                    id="isAuthStamped1"
+                                    checked={isAuthStamped === '1'}
+                                    onChange={(e) => onChange(e)}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isAuthStamped1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isAuthStamped"
+                                    value="0"
+                                    id="isAuthStamped0"
+                                    checked={isAuthStamped === '0'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isAuthStamped0"
+                                >
+                                    No
+                                </label>
                             </div>
 
                             <div className="col-md-6">
                                 <label className="form-label">
                                     13. Whether e-mail/phone/Mobile No. is on
                                     record
+                                    <p className="invalid-feedback d-block">
+                                        {formError.isEmailPhoneOnRecord}
+                                    </p>
                                 </label>
                             </div>
 
-                            <div className="col-md-6 form-check">
+                            <div className="col-md-3 form-check">
                                 <input
-                                    type="checkbox"
                                     className="form-check-input"
-                                    id="isEmailPhoneOnRecord"
+                                    type="radio"
                                     name="isEmailPhoneOnRecord"
-                                    value={isEmailPhoneOnRecord}
-                                    checked={isEmailPhoneOnRecord}
-                                    onChange={(e) => handleCheck(e)}
+                                    value="1"
+                                    id="isEmailPhoneOnRecord1"
+                                    checked={isEmailPhoneOnRecord === '1'}
+                                    onChange={(e) => onChange(e)}
                                 />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isEmailPhoneOnRecord1"
+                                >
+                                    Yes
+                                </label>
+                            </div>
+                            <div className="col-md-3 form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="isEmailPhoneOnRecord"
+                                    value="0"
+                                    id="isEmailPhoneOnRecord0"
+                                    checked={isEmailPhoneOnRecord === '0'}
+                                    onChange={(e) => onChange(e)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="isEmailPhoneOnRecord0"
+                                >
+                                    No
+                                </label>
                             </div>
                             <div className="col-12">
                                 <button className="btn btn-success btn-icon-split">

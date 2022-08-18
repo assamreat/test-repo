@@ -24,9 +24,9 @@ const Checklist = ({
         appellant: '',
         respondent: '',
         sectionNum: '',
-        isAppealCompetent: false,
-        isNameAddressCorrect: false,
-        isOrdercopyAttached: false,
+        isAppealCompetent: '',
+        isNameAddressCorrect: '',
+        isOrdercopyAttached: '',
         dateOfOrder: '',
         dateOfCommunication: '',
         dateOfApplication: '',
@@ -36,20 +36,20 @@ const Checklist = ({
         dateOfSubmissionHardcopy: '',
         isDelayOnSubmission: '',
         amountOfDelayOnSubmission: '',
-        isAppealFiledWithinLimitation: false,
-        isDelayInFiling: false,
+        isAppealFiledWithinLimitation: '',
+        isDelayInFiling: '',
         amountOfDelayInFiling: '',
-        isCondonationOfDelayFiled: false,
+        isCondonationOfDelayFiled: '',
         objectionForCondonation: '',
-        isFeesPaid: false,
+        isFeesPaid: '',
         dateOfPayment: new Date(0),
         copyOfReceipt: '',
         isPaginationCorrect: '',
         legibleDocs: '',
-        isAppealMemoAnnexed: false,
-        isServedByPost: false,
-        isAuthStamped: false,
-        isEmailPhoneOnRecord: false,
+        isAppealMemoAnnexed: '',
+        isServedByPost: '',
+        isAuthStamped: '',
+        isEmailPhoneOnRecord: '',
     });
 
     const [formError, setFormError] = useState({});
@@ -74,9 +74,23 @@ const Checklist = ({
         if (!values.sectionNum) {
             errors.sectionNum = 'Section number can not be empty';
         }
+
+        if (!values.isAppealCompetent) {
+            errors.isAppealCompetent = 'Please select a response';
+        }
+
+        if (!values.isNameAddressCorrect) {
+            errors.isNameAddressCorrect = 'Please select a response';
+        }
+
+        if (!values.isOrdercopyAttached) {
+            errors.isOrdercopyAttached = 'Please select a response';
+        }
+
         if (!values.dateOfOrder) {
             errors.dateOfOrder = 'Date of order can not be empty';
         }
+
         if (!values.dateOfCommunication) {
             errors.dateOfCommunication =
                 'Date of communication can not be empty';
@@ -99,27 +113,73 @@ const Checklist = ({
                 'Date of submission of hard copy can not be empty';
         }
 
-        if (values.isDelayOnSubmission && !values.amountOfDelayOnSubmission) {
-            errors.amountOfDelayOnSubmission = 'This Field can not be empty';
-        }
-
-        if (values.isDelayInFiling && !values.amountOfDelayInFiling) {
-            errors.amountOfDelayInFiling = 'This Field can not be empty';
+        if (!values.isDelayOnSubmission) {
+            errors.isDelayOnSubmission = 'Please select a response';
         }
 
         if (
-            !values.isCondonationOfDelayFiled &&
+            values.isDelayOnSubmission === '1' &&
+            !values.amountOfDelayOnSubmission
+        ) {
+            errors.amountOfDelayOnSubmission = 'This Field can not be empty';
+        }
+
+        if (!values.isAppealFiledWithinLimitation) {
+            errors.isAppealFiledWithinLimitation = 'Please select a response';
+        }
+
+        if (!values.isDelayInFiling) {
+            errors.isDelayInFiling = 'Please select a response';
+        }
+
+        if (values.isDelayInFiling === '1' && !values.amountOfDelayInFiling) {
+            errors.amountOfDelayInFiling = 'This Field can not be empty';
+        }
+
+        if (!values.isCondonationOfDelayFiled) {
+            errors.isCondonationOfDelayFiled = 'Please select a response';
+        }
+
+        if (
+            values.isCondonationOfDelayFiled === '0' &&
             !values.objectionForCondonation
         ) {
             errors.objectionForCondonation = 'This Field can not be empty';
         }
 
-        if (values.isFeesPaid && !values.dateOfPayment) {
+        if (!values.isFeesPaid) {
+            errors.isFeesPaid = 'Please select a response';
+        }
+
+        if (
+            values.isFeesPaid === '1' &&
+            values.dateOfPayment - new Date(0) === 0
+        ) {
             errors.dateOfPayment = 'This Field can not be empty';
         }
 
-        if (values.isPaginationCorrect && !values.legibleDocs) {
+        if (!values.isPaginationCorrect) {
+            errors.isPaginationCorrect = 'Please select a response';
+        }
+
+        if (values.isPaginationCorrect === '1' && !values.legibleDocs) {
             errors.legibleDocs = 'This Field can not be empty';
+        }
+
+        if (!values.isAppealMemoAnnexed) {
+            errors.isAppealMemoAnnexed = 'Please select a response';
+        }
+
+        if (!values.isServedByPost) {
+            errors.isServedByPost = 'Please select a response';
+        }
+
+        if (!values.isAuthStamped) {
+            errors.isAuthStamped = 'Please select a response';
+        }
+
+        if (!values.isEmailPhoneOnRecord) {
+            errors.isEmailPhoneOnRecord = 'Please select a response';
         }
 
         return errors;
@@ -129,9 +189,6 @@ const Checklist = ({
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleCheck = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.checked });
-    };
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -165,7 +222,6 @@ const Checklist = ({
         <ChecklistForm
             formData={formData}
             onChange={onChange}
-            handleCheck={handleCheck}
             onSubmit={onSubmit}
             formError={formError}
             setFormData={setFormData}
