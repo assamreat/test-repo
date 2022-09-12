@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import AppealItem from './AppealItem';
+import BenchItem from './BenchItem';
 import { getAppealsBench } from '../../../actions/appeal';
 import { connect } from 'react-redux';
 
@@ -35,12 +35,13 @@ const BenchList = ({ getAppealsBench, appeal: { appeals, loading } }) => {
                                     <th>Address</th>
                                     <th>View</th>
                                     <th>Action</th>
+                                    <th>Checklist</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 {appeals.map((appeal) => (
-                                    <AppealItem
+                                    <BenchItem
                                         key={appeal.id}
                                         appeal={appeal}
                                     />
